@@ -20,12 +20,6 @@ task <- "tgroups1"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
 rolog::consult(system.file(plfile, package="mistakes"))
 
-interval <- function(l, u) {
-  sprintf("$(%s, %s)$", round(l, 1), round(u, 1))
-}
-
-hook(interval(.Lower, .Upper), c(.Lower, .Upper))
-
 ## DATA GENERATION
 repeat
 {
