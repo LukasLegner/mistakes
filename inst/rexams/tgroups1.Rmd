@@ -1,5 +1,5 @@
 ---
-title: "Comparisons of Independent Groups"
+title: "Randomized study on PTSD"
 params:
   lang: "en"
 ---
@@ -58,12 +58,12 @@ repeat
 }
 
 tab <- data.frame(
-  "Therapy A" = c(sprintf("%.0f", n_A), sprintf("%.2f", mu_A)), 
-  "Therapy B" = c(sprintf("%.0f", n_B), sprintf("%.2f", mu_B)),
+  "Therapy A" = c(sprintf("%.0f", n_A), sprintf("%.1f", mu_A), sprintf("%.1f", s_A)), 
+  "Therapy B" = c(sprintf("%.0f", n_B), sprintf("%.1f", mu_B), sprintf("%.1f", s_B)),
   check.names = FALSE
 )
 
-row.names(tab) <- c("Sample size", "Mean symptom score on CAPS-5")
+row.names(tab) <- c("Sample size", "Mean symptom score on CAPS-5", "Standard deviation")
 
 
 t <- prepare(task=task, S)
@@ -87,7 +87,8 @@ knitr::kable(tab, align=c("c", "c", "l"))
 
 The pooled sample variance is $s^2_{pool}$ = `r round(s2_pool, 2)`.
 Assuming equal population variances, 
-calculate the $t$-statistic for the difference between Therapy A and Therapy B.
+calculate the $t$-statistic for the difference between the group averages.
+A positive $t$-statistic ($t>0$) should indicate superiority of the EMDR group.
 
 
 ```{r questionlist, echo = FALSE, results = "asis"}
