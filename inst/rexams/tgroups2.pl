@@ -22,7 +22,7 @@ expert(X, Y, s2pool, []) :-
 % Mistakes
 buggy(X, Y, brackets, []) :-
     X = df(N_A, S2_A, N_B, S2_B, _Denominator),
-    Y = dfrac(dot(N_A - 1, S2_A) + dot(N_B - 1, dot(S2_B, N_A)), N_B - 2).
+    Y = dot(N_A - 1, S2_A) + dot(N_B - 1, S2_B / N_A) + N_B - 2.
 
 buggy(X, Y, sigma, []) :-
     X = tgroups(N_A, S_A, N_B, S_B),
