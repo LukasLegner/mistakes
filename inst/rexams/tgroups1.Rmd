@@ -79,7 +79,7 @@ with higher scores indicating more severe symptoms. Consider the following data:
 knitr::kable(tab, align=c("c", "c", "l"))
 ````
 
-The pooled sample variance is $s^2_{pool}$ = `r round(s2_pool, 2)`.
+The pooled sample variance is $s^2_\mathrm{pool}$ = `r round(s2_pool, 2)`.
 Assuming equal population variances, 
 calculate the $t$-statistic for the difference between the group averages.
 A positive $t$-statistic ($t>0$) should indicate superiority of the EMDR group.
