@@ -40,7 +40,7 @@ repeat
   if(abs(tratio) < 0.5 || abs(tratio) > 3.0)
     next
 
-  Q <- quote(search(tgroups6, welch(mu_A, s_A, n_A, mu_B, s_B, n_A), .S, .R, .P, .E))
+  Q <- quote(search(tgroups6, welch(mu_A, s_A, n_A, mu_B, s_B, n_B), .S, .R, .P, .E))
   S <- findall(Q, options = list(preproc = as.rolog), env = environment())
 
   if(problems(S))
