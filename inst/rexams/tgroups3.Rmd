@@ -1,0 +1,112 @@
+---
+title: "Randomized study on AI-assisted learning"
+params:
+  lang: "en"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(s2_pool, subscript(s^2L, pool))
+hook(mu_A, subscript(mean(X), "A"))
+hook(mu_B, subscript(mean(X), "B"))
+hook(n_A, subscript(n, "A"))
+hook(n_B, subscript(n, "B"))
+hook(s_A, subscript(s, "A"))
+hook(s_B, subscript(s, "B"))
+
+task <- "tgroups3"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+
+## DATA GENERATION
+repeat
+{
+  n_A <- sample(20:50, 1)
+  n_B <- n_A + sample(-10:10, 1)
+
+  mu_A <- round(runif(1, 50, 75), 1)
+  mu_B <- round(runif(1, 55, 85), 1)
+
+  s_A <- round(runif(1, 8, 15), 1)
+  s_B <- round(runif(1, 8, 15), 1)
+
+  if(n_A == n_B)
+    next
+
+  s2_pool <- ((n_A - 1) * s_A^2 + (n_B - 1) * s_B^2) / (n_A + n_B - 2)
+
+  tratio <- (mu_B - mu_A) / sqrt(s2_pool * (1/n_A + 1/n_B))
+
+  if(abs(tratio) < 0.5 || abs(tratio) > 3.0)
+    next
+
+  Q <- quote(search(tgroups3, tgroups(n_A, mu_A, n_B, mu_B, s2_pool), .S, .R, .P, .E))
+  S <- findall(Q, options = list(preproc = as.rolog), env = environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+
+tab <- data.frame(
+  "Method A" = c(sprintf("%.0f", n_A), sprintf("%.1f", mu_A), sprintf("%.1f", s_A)), 
+  "Method B" = c(sprintf("%.0f", n_B), sprintf("%.1f", mu_B), sprintf("%.1f", s_B)),
+  check.names = FALSE
+)
+
+row.names(tab) <- c("Sample size", "Mean mathematics score", "Standard deviation")
+
+
+t <- prepare(task=task, S)
+sol <- format_feedback(
+  t$correct, t$explanations, t$praise, t$blame, t$extra
+)
+```
+
+
+Question
+========
+In a pedagogical study, researchers investigate whether AI-assisted learning is more effective 
+than traditional tutoring sessions in improving mathematics performance. 
+Students were randomly assigned to the two tutoring methods. 
+Method A consisted of weekly tutoring session with a human tutor, 
+whereas Method B involved AI-assisted learning using an adaptive learning platform. 
+At the end of the semester, mathematics performance was assessed 
+using a standardized mathematics achievement test, with higher scores indicating better performance. 
+Consider the following data:
+
+````{r, echo=FALSE}
+knitr::kable(tab, align=c("c", "c", "l"))
+````
+
+The pooled sample variance is $s^2_\mathrm{pool}$ = `r round(s2_pool, 2)`.
+Assuming equal population variances, 
+calculate the $t$-statistic for the difference between the group averages.
+A positive $t$-statistic ($t>0$) should indicate superiority of the AI-assisted learning group.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The $t$-statistic is calculated by: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: tgroups3
+ 
