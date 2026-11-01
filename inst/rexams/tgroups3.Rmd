@@ -38,7 +38,7 @@ repeat
   if(n_A == n_B)
     next
 
-  s2_pool <- ((n_A - 1) * s_A^2 + (n_B - 1) * s_B^2) / (n_A + n_B - 2)
+  s2_pool <- round(((n_A - 1) * s_A^2 + (n_B - 1) * s_B^2) / (n_A + n_B - 2), 1)
 
   tratio <- (mu_B - mu_A) / sqrt(s2_pool * (1/n_A + 1/n_B))
 
@@ -86,7 +86,7 @@ Consider the following data:
 knitr::kable(tab, align=c("c", "c", "l"))
 ````
 
-The pooled sample variance is $s^2_\mathrm{pool}$ = `r round(s2_pool, 2)`.
+The pooled sample variance is $s^2_\mathrm{pool}$ = `r s2_pool`.
 Assuming equal population variances, 
 calculate the $t$-statistic for the difference between the group averages.
 A positive $t$-statistic ($t>0$) should indicate superiority of the AI-assisted learning group.
