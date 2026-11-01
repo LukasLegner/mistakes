@@ -1,0 +1,105 @@
+---
+title: "Randomized study on puzzle solving"
+params:
+  lang: "en"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(s2_pool, subscript(s^2L, pool))
+hook(mu_A, subscript(mean(X), "A"))
+hook(mu_B, subscript(mean(X), "B"))
+hook(n_A, subscript(n, "A"))
+hook(n_B, subscript(n, "B"))
+hook(s_A, subscript(s, "A"))
+hook(s_B, subscript(s, "B"))
+
+task <- "tgroups6"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+
+## DATA GENERATION
+repeat
+{
+  n_A <- sample(20:40, 1)
+  n_B <- n_A + sample(5:15, 1)
+
+  mu_A <- round(runif(1, 12, 20), 1)
+  mu_B <- round(runif(1, 8, 15), 1)
+
+  s_A <- round(runif(1, 5, 8), 1)
+  s_B <- round(runif(1, 2, 4), 1)
+
+  tratio <- (mu_A - mu_B) / sqrt(s_A^2/n_A + s_B^2/n_B)
+
+  if(abs(tratio) < 0.5 || abs(tratio) > 3.0)
+    next
+
+  Q <- quote(search(tgroups6, welch(mu_A, s_A, n_A, mu_B, s_B, n_B), .S, .R, .P, .E))
+  S <- findall(Q, options = list(preproc = as.rolog), env = environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+
+
+tab <- data.frame(
+  "Condition A" = c(sprintf("%.0f", n_A), sprintf("%.1f", mu_A), sprintf("%.1f", s_A)), 
+  "Condition B" = c(sprintf("%.0f", n_B), sprintf("%.1f", mu_B), sprintf("%.1f", s_B)),
+  check.names = FALSE
+)
+
+row.names(tab) <- c("Sample size", "Mean completion time (min)", "Standard deviation (min)")
+
+
+t <- prepare(task=task, S)
+sol <- format_feedback(
+  t$correct, t$explanations, t$praise, t$blame, t$extra
+)
+```
+
+
+Question
+========
+In a social psychology experiment on frustration and task performance, 
+participants were randomly assigned to two conditions. 
+In Condition A, participants completed a series of unsolvable puzzles 
+designed to induce frustration, in Condition B, participants completed solvable puzzles. 
+After a short break, all participants were given a set of new puzzles. 
+The time needed to complete these (in minutes) was the primary outcome of the study. 
+Consider the following data: 
+
+````{r, echo=FALSE}
+knitr::kable(tab, align=c("c", "c", "l"))
+````
+Because greater variability in task performance is expected in Condition A, 
+calculate the Welch statistic for the difference between the group averages.
+A positive Welch-statistic should indicate superiority of the no-frustration group.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The Welch-statistic is calculated by: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: tgroups6
+ 
