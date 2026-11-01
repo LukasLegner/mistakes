@@ -91,7 +91,6 @@ knitr::kable(tab, align=c("c", "c", "l"))
 The pooled sample variance is $s^2_\mathrm{pool}$ = `r s2_pool`.
 Assuming equal population variances, calculate the two-tailed $p$-value of the $t$-test 
 for the difference between the group averages. 
-A positive $t$-statistic ($t>0$) should indicate superiority of the EMDR group.
 
 ```{r questionlist, echo = FALSE, results = "asis"}
 answerlist(t$alternatives, markup="markdown")
