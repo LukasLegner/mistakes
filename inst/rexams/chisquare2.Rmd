@@ -8,7 +8,7 @@ library(mathml)
 library(htmltools)
 library(mistakes)
 
-hook(pnorm1(.X, .Tail), pnorm(.X, .Tail))
+hook(pnorm1(.X, .Tail), (1L-pnorm(.X)))
 
 task <- "chisquare2"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
@@ -83,3 +83,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: chisquare2
+exshuffle: TRUE
