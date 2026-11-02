@@ -36,7 +36,7 @@ praise(en, numerator, "You correctly calculated the numerator of the $t$-ratio."
 
 praise(en, denominator, "You correctly calculated the denominator of the $t$-ratio.").
 
-blame(en, inverted, "Careful, you inverted the terms in the numerator, which should be bar ~m, not ~m."-[xbar-mu_0, mu_0-xbar]).
+blame(en, inverted, "Careful, you inverted the terms in the numerator, which should be ~m, not ~m."-[xbar-mu_0, mu_0-xbar]).
 
 blame(en, nosqrt, "Careful, you forgot to take the square root of $N$ when calculating the standard error.").
 
