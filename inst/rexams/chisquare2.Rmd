@@ -8,7 +8,7 @@ library(mathml)
 library(htmltools)
 library(mistakes)
 
-hook(pnorm1(.X, .Tail), (1L-pnorm(.X)))
+# hook(pnorm1(.X, .Tail), (1L-pnorm(.X)))
 
 task <- "chisquare2"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
