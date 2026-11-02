@@ -17,8 +17,8 @@ lang(Id, Elem),
     lang(L, Id, Elem0)
  => Elem = Elem0.
 
-lang(en, pooledvar, "with ~m denoting the pooled success probability.").
-lang(de, pooledvar, "mit ~m für die gepoolte Erfolgswahrscheinlichkeit.").
+lang(en, pooledvar, "with ~m denoting the pooled success rate.").
+lang(de, pooledvar, "mit ~m für die gepoolte Erfolgsrate.").
 
 intermediate(pool_success/5).
 
@@ -34,7 +34,7 @@ expert(X, Y, square, []) :-
 
 % Mistakes
 
-% Report the pooled success probability instead of the test statistic
+% Report the pooled success rate instead of the test statistic
 buggy(X, Y, pool, []) :-
     X = pool_success(P_pool, _P_A, _P_B, _N_A, _N_B),
     Y = P_pool.
@@ -56,13 +56,13 @@ buggy(X, Y, total_n, []) :-
 
 % Feedback
 
-praise(en, pooled_success,"You have correctly identified the expression for the pooled success probability.").
+praise(en, pooled_success,"You have correctly identified the expression for the pooled success rate.").
 
 praise(en, chisquare,"You have correctly identified the expression for the ~m-statistic."-[z]).
 
 praise(en, square,"You have correctly transformed the ~m-statistic into the ~m-statistic."-[z, chi^2]).
 
-blame(en, pool, "Careful, the result corresponds to the pooled success probability ~m. This is an intermediate result used in the denominator of the ~m-statistic, but the task is not yet finished."-[p_pool, z]).
+blame(en, pool, "Careful, the result corresponds to the pooled success rate ~m. This is an intermediate result used in the denominator of the ~m-statistic, but the task is not yet finished."-[p_pool, z]).
 
 blame(en, stop_z, "Careful, the result corresponds to the ~m-statistic. The ~m-statistic is obtained by raising it to the square."-[z, chi^2]).
 
@@ -70,13 +70,13 @@ blame(en, neg_z, "Careful, the result corresponds to the negative ~m-statistic. 
 
 blame(en, total_n, "Something is wrong in the denominator. Please note that ~m cannot be simplified to ~m."-[frac(1, n_a) + frac(1, n_b), frac(1, n_a + n_b)]).
 
-praise(de, pooled_success,"Du hast den Ausdruck für die gepoolte Erfolgswahrscheinlichkeit korrekt identifiziert.").
+praise(de, pooled_success,"Du hast den Ausdruck für die gepoolte Erfolgsrate korrekt identifiziert.").
 
 praise(de, chisquare,"Du hast den Ausdruck für die ~m-Statistik korrekt identifiziert."-[z]).
 
 praise(de, square,"Du hast die ~m-Statistik korrekt in die ~m-Statistik umgewandelt."-[z, chi^2]).
 
-blame(de, pool, "Vorsicht, das Ergebnis entspricht der gepoolten Erfolgswahrscheinlichkeit ~m. Das ist ein Zwischenergebnis, das im Nenner der ~m-Statistik verwendet wird, aber die Lösung ist noch nicht vollständig."-[p_pool, z]).
+blame(de, pool, "Vorsicht, das Ergebnis entspricht der gepoolten Erfolgsrate ~m. Das ist ein Zwischenergebnis, das im Nenner der ~m-Statistik verwendet wird, aber die Lösung ist noch nicht vollständig."-[p_pool, z]).
 
 blame(de, stop_z, "Vorsicht, das Ergebnis entspricht der ~m-Statistik. Die ~m-Statistik erhält man, indem man diesen Wert quadriert."-[z, chi^2]).
 
