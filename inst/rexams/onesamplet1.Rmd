@@ -1,0 +1,74 @@
+---
+title: "Clinical Study on Depression"
+params:
+  lang: "en"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "onesamplet1"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+hook(xbar, mean(X))
+hook(s_D, subscript(s, D))
+hook(mu_0, subscript(mu, 0L))
+hook(n, N)
+
+## DATA GENERATION
+repeat
+{
+  n <- as.integer(round(runif(1, min=20, max=45)))
+  mu_0 <- round(runif(1, min = 18, max = 28), 1)
+  s_D   <- round(runif(1, min = 4, max = 9), 1)    
+
+  t <- runif(1, min = 0.5, max = 3.0)
+  xbar <- round(mu_0 + t * s_D / sqrt(n), 1)
+
+  tratio <- (xbar - mu_0) / (s_D / sqrt(n))
+
+  if(tratio < 0.5 || tratio > 3.0)
+    next
+
+  Q <- quote(search(onesamplet1, tratio(xbar, mu_0, s_D, n),
+    .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+```
+
+Question
+========
+Consider a clinical study in which $N=`r n`$ patients have a mean depression score of $\overline{X}=`r xbar`$ on the Beck Depression Inventory, 
+with a standard deviation of $s_D=`r s_D`$. To test whether the mean depression score is higher than the reference value $\mu_0= `r n`$, 
+calculate the corresponding $t$-ratio.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The $t$-ratio is given by : `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: onesamplet1
