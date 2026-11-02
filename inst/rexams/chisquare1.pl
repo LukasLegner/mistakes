@@ -1,14 +1,24 @@
 :- module(chisquare1, []).
 
-:- discontiguous intermediate/1, expert/4, buggy/4, blame/2, praise/2.
+:- discontiguous intermediate/1, expert/4, buggy/4, blame/3, praise/3.
+:- use_module(library(i18n)).
 
 % Solution of the problem
 intermediate(chisquare1/6).
 
 expert(X, Y, pooled_success, []) :-
     X = chisquare1(P_A, P_B, N_A, N_B, X_A, X_B),
-    P = denote(p_pool, dfrac(X_A + X_B, N_A + N_B), "with ~m denoting the pooled success probability."),
+    lang(pooledvar, Pooled),
+    P = denote(p_pool, dfrac(X_A + X_B, N_A + N_B), Pooled),
     Y = pool_success(P, P_A, P_B, N_A, N_B).
+
+lang(Id, Elem),
+    lang(L),
+    lang(L, Id, Elem0)
+ => Elem = Elem0.
+
+lang(en, pooledvar, "with ~m denoting the pooled success probability.").
+lang(de, pooledvar, "mit ~m für die gepoolte Erfolgswahrscheinlichkeit.").
 
 intermediate(pool_success/5).
 
@@ -26,7 +36,7 @@ expert(X, Y, square, []) :-
 
 % Report the pooled success probability instead of the test statistic
 buggy(X, Y, pool, []) :-
-    X = pool_success(P_pool, _P_A, _P_B, _N_A, N_B),
+    X = pool_success(P_pool, _P_A, _P_B, _N_A, _N_B),
     Y = P_pool.
 
 % Stop at the z-statistic instead of calculating chi-square
@@ -59,3 +69,17 @@ blame(en, stop_z, "The result corresponds to the ~m-statistic. The ~m-statistic 
 blame(en, neg_z, "The result corresponds to the negative ~m-statistic. The ~m-statistic is obtained by raising it to the square."-[z, chi^2]).
 
 blame(en, total_n, "Something is wrong in the denominator. Please note that ~m cannot be simplified to ~m."-[frac(1, n_a) + frac(1, n_b), frac(1, n_a + n_b)]).
+
+praise(de, pooled_success,"Du hast den Ausdruck für die gepoolte Erfolgswahrscheinlichkeit korrekt identifiziert.").
+
+praise(de, chisquare,"Du hast den Ausdruck für die ~m-Statistik korrekt identifiziert."-[z]).
+
+praise(de, square,"Du hast die ~m-Statistik korrekt in die ~m-Statistik umgewandelt."-[z, chi^2]).
+
+blame(de, pool, "Das Ergebnis entspricht der gepoolten Erfolgswahrscheinlichkeit ~m. Da ist ein Zwischenergebnis, das im Nenner der ~m-Statistik verwendet wird, aber die Lösung ist noch nicht vollständig."-[p_pool, z]).
+
+blame(de, stop_z, "Das Ergebnis entspricht der ~m-Statistik. Die ~m-Statistik erhält man, indem man diesen Wert quadriert."-[z, chi^2]).
+
+blame(de, neg_z, "Das Ergebnis entspricht der negativen ~m-Statistik. Die ~m-Statistik erhält man, indem man diesen Wert quadriert."-[z, chi^2]).
+
+blame(de, total_n, "Im Nenner stimmt etwas nicht. Bitte beachte, dass ~m nicht zu ~m vereinfacht werden kann."-[frac(1, n_a) + frac(1, n_b), frac(1, n_a + n_b)]).
