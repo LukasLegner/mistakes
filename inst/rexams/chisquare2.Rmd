@@ -8,7 +8,7 @@ library(mathml)
 library(htmltools)
 library(mistakes)
 
-hook(pnorm1(.X, .Tail), pnorm(.X, .Tail))
+# hook(pnorm1(.X, .Tail), (1L-pnorm(.X)))
 
 task <- "chisquare2"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
@@ -71,7 +71,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Solution
 ========
-The $p$-value of the $\chi^2$-test is the same as for the $z$-test, which is calculated by: `r t$solution`
+The $p$-value of the $\chi^2$-test is calculated by: `r t$solution`
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
@@ -83,3 +83,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: chisquare2
+exshuffle: TRUE
