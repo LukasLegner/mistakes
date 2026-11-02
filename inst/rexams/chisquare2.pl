@@ -34,7 +34,7 @@ blame(en, one_sided, "Careful, the result corresponds the wrong tail of the ~m-t
 
 blame(en, forgotsquare, "Careful, you forgot squaring the ~m-value for the ~m-test."-[z, chi^2]).
 
-blame(en, usedpnorm, "Careful, your result corresponds to looking up the value in the normal distribution table. Subtract this value from one and multiply the result by 2 to reach the ~m-value."-[p]).
+blame(en, usedpnorm, "Careful, your result corresponds to the value in the normal distribution table. Subtract this value from one and multiply the result by 2 to reach the ~m-value."-[p]).
 
 praise(de, chisquare_p, "Richtig. Bei einem Freiheitsgrad ist ~m und der entsprechende ~m-Test hat denselben ~m-Wert wie der zweiseitige ~m-Test."-[chi^2 = z^2, chi^2, p, z]).
 
@@ -42,4 +42,4 @@ blame(de, one_sided, "Vorsicht, das Ergebnis entspricht dem falschen Randbereich
 
 blame(de, forgotsquare, "Vorsicht, du hast vergessen, den ~m-Wert für den ~m-Test zu quadrieren."-[z, chi^2]).
 
-blame(de, usedpnorm, "Vorsicht, dein Ergebnis entspricht dem Nachschlagen des Wertes in der Normalverteilungstabelle. Ziehe diesen Wert von 1 ab und multipliziere das Ergebnis mit 2, um den ~m-Wert zu erhalten."-[p]).
+blame(de, usedpnorm, "Vorsicht, dein Ergebnis entspricht dem Wert aus der Normalverteilungstabelle. Ziehe diesen Wert von 1 ab und multipliziere das Ergebnis mit 2, um den ~m-Wert zu erhalten."-[p]).

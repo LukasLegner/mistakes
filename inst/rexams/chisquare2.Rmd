@@ -71,7 +71,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Solution
 ========
-The $p$-value of the $\chi^2$-test is the same as for the $z$-test, which is calculated by: `r t$solution`
+The $p$-value of the $\chi^2$-test is calculated by: `r t$solution`
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
