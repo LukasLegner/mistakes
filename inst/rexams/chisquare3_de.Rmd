@@ -49,7 +49,7 @@ Aufgabe
 In einer randomisierten kontrollierten Studie besteht Gruppe A aus `r n_a`
 Patienten, von denen `r x_a` einen Behandlungserfolg zeigen, Gruppe B
 aus `r n_b` Patienten, von denen `r x_b` einen Behandlungserfolg zeigen.
-Bestimme die gepoolte Erfolgswahrscheinlichkeit $p_{\mathrm{pool}}$.
+Bestimme die gepoolte Erfolgsrate $p_{\mathrm{pool}}$.
 
 ```{r questionlist, echo = FALSE, results = "asis"}
 answerlist(t$alternatives, markup="markdown")

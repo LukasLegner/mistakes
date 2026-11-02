@@ -46,7 +46,7 @@ Question
 
 In a randomized controlled trial, group A is composed of `r n_a` patients, with `r x_a` showing treatment success, 
 and group B is composed of `r n_b` patients, with `r x_b` treatment successes.
-Determine the pooled success probability $p_{\mathrm{pool}}$.
+Determine the pooled success rate $p_{\mathrm{pool}}$.
 
 ```{r questionlist, echo = FALSE, results = "asis"}
 answerlist(t$alternatives, markup="markdown")
