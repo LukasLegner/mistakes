@@ -57,7 +57,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Lösung
 ========
-Die gepoolte Erfolgswahrscheinlichkeit wird folgendermaßen berechnet: `r t$solution`
+Die gepoolte Erfolgsrate wird folgendermaßen berechnet: `r t$solution`
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
