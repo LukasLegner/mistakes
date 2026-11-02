@@ -1,0 +1,104 @@
+---
+title: "Learning Statistics with an App"
+params:
+  lang: "en"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "tgroups7"
+plfile <- sprintf("%s.pl", task)
+if(!file.exists(plfile))
+  plfile <- system.file(file.path("rexams", plfile), package = "mistakes")
+rolog::consult(plfile)
+
+hook(m_A, mean("A"))
+hook(s_A, subscript(s, "A"))
+hook(n_A, subscript(N, "A"))
+hook(m_B, mean("B"))
+hook(s_B, subscript(s, "B"))
+hook(n_B, subscript(N, "B"))
+hook(s_pool, subscript(s, "pool"))
+
+repeat
+{
+  # unequal group sizes, so that the weighting of the variances matters
+  n_A <- sample(15:40, 1)
+  n_B <- sample(15:40, 1)
+  if(n_A == n_B)
+    next
+
+  s_A <- round(runif(1, 5, 10), 1)
+  s_B <- round(s_A * runif(1, 0.6, 1.4), 1)
+  m_B <- round(runif(1, 25, 35), 1)
+
+  t <- runif(1, 0.5, 3.0)
+  v_pool <- ((n_A - 1) * s_A^2 + (n_B - 1) * s_B^2) / (n_A + n_B - 2)
+  m_A <- round(m_B + t * sqrt(v_pool * (1/n_A + 1/n_B)), 1)
+  tratio <- (m_A - m_B) / sqrt(v_pool * (1/n_A + 1/n_B))
+
+  if(tratio < 0.5 || tratio > 3.0)
+    next
+
+  Q <- substitute(search(task, tgroups(m_A, s_A, n_A, m_B, s_B, n_B),
+                    .S, .R, .P, .E), list(task = as.name(task)))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  # response options must be distinguishable after rounding
+  if(any(duplicated(sprintf("%.2f", sapply(S, FUN="[[", "R")))))
+    next
+
+  break
+}
+
+tab <- data.frame(A = c(sprintf("%.1f", c(m_A, s_A)), n_A),
+                  B = c(sprintf("%.1f", c(m_B, s_B)), n_B))
+row.names(tab) <- c("Mean", "SD", "N")
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+```
+
+Question
+========
+A study investigates whether students who prepare for a statistics exam with a 
+learning app (Group A) achieve better results than students who prepare with a 
+textbook (Group B). A total of $N_A=`r n_A`$ students learn with the app, and 
+$N_B=`r n_B`$ students learn with the textbook. The outcome is the number of points 
+in the final exam (from 0 to 60 points). The variances in both groups are assumed to be equal.
+The significance level is set to $\alpha=.05$, two-tailed.
+
+````{r, echo=FALSE}
+knitr::kable(tab, align="r", caption="_Table 1._ Exam points in Group A (app) and Group B (textbook).")
+````
+Do the two groups differ in their exam results? 
+Please report the $t$-ratio.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The $t$-statistic for independent samples is given by 
+$t=\frac{\overline{A}-\overline{B}}{\sqrt{s_\text{pool}^2 \left(\frac{1}{N_A}+\frac{1}{N_B}\right)}}$
+with the pooled variance $s_\text{pool}^2=\frac{(N_A-1)\, s_A^2 + (N_B-1)\, s_B^2}{N_A+N_B-2}$, 
+resulting in `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: tgroups1

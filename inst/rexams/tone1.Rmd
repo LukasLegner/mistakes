@@ -1,0 +1,90 @@
+---
+title: "Concentration of Pupils"
+params:
+  lang: "en"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "tone1"
+plfile <- sprintf("%s.pl", task)
+if(!file.exists(plfile))
+  plfile <- system.file(file.path("rexams", plfile), package = "mistakes")
+rolog::consult(plfile)
+
+hook(x_bar, mean(X))
+hook(s_x, s)
+hook(n, N)
+hook(mu_0, subscript(mu, 0L))
+
+repeat
+{
+  n <- sample(20:50, 1)
+  mu_0 <- 100
+  s_x <- round(runif(1, 10, 20), 1)
+
+  # the sample mean may lie above or below the norm
+  t <- sample(c(-1, 1), 1) * runif(1, 0.5, 3.0)
+  x_bar <- round(mu_0 + t * s_x / sqrt(n), 1)
+  tratio <- (x_bar - mu_0) / (s_x / sqrt(n))
+
+  if(abs(tratio) < 0.5 || abs(tratio) > 3.0)
+    next
+
+  Q <- substitute(search(task, tone(x_bar, mu_0, s_x, n),
+                    .S, .R, .P, .E), list(task = as.name(task)))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  # response options must be distinguishable after rounding
+  if(any(duplicated(sprintf("%.2f", sapply(S, FUN="[[", "R")))))
+    next
+
+  break
+}
+
+tab <- data.frame(Concentration = c(sprintf("%.1f", c(x_bar, s_x)), n))
+row.names(tab) <- c("Mean", "SD", "N")
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+```
+
+Question
+========
+A school psychologist investigates whether pupils at a school with an extended 
+sports program differ in their ability to concentrate from the general population. 
+A total of $N=`r n`$ pupils complete a standardized concentration test. In the 
+general population, the test has a mean of $\mu_0=`r mu_0`$ points. The significance 
+level is set to $\alpha=.05$, two-tailed.
+
+````{r, echo=FALSE}
+knitr::kable(tab, align="r", caption="_Table 1._ Concentration test scores of the pupils.")
+````
+Do the pupils differ from the general population in their ability to concentrate? 
+Please report the $t$-ratio.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The $t$-statistic for one sample is given by $t=\frac{\overline{X}-\mu_0}{s / \sqrt{N}}$, resulting in `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: tone1
