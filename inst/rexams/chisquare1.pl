@@ -62,11 +62,11 @@ praise(en, chisquare,"You have correctly identified the expression for the ~m-st
 
 praise(en, square,"You have correctly transformed the ~m-statistic into the ~m-statistic."-[z, chi^2]).
 
-blame(en, pool, "The result corresponds to the pooled success probability ~m. This is an intermediate result used in the denominator of the ~m-statistic, but the task is not yet finished."-[p_pool, z]).
+blame(en, pool, "Careful, the result corresponds to the pooled success probability ~m. This is an intermediate result used in the denominator of the ~m-statistic, but the task is not yet finished."-[p_pool, z]).
 
-blame(en, stop_z, "The result corresponds to the ~m-statistic. The ~m-statistic is obtained by raising it to the square."-[z, chi^2]).
+blame(en, stop_z, "Careful, the result corresponds to the ~m-statistic. The ~m-statistic is obtained by raising it to the square."-[z, chi^2]).
 
-blame(en, neg_z, "The result corresponds to the negative ~m-statistic. The ~m-statistic is obtained by raising it to the square."-[z, chi^2]).
+blame(en, neg_z, "Careful, the result corresponds to the negative ~m-statistic. The ~m-statistic is obtained by raising it to the square."-[z, chi^2]).
 
 blame(en, total_n, "Something is wrong in the denominator. Please note that ~m cannot be simplified to ~m."-[frac(1, n_a) + frac(1, n_b), frac(1, n_a + n_b)]).
 
@@ -76,10 +76,10 @@ praise(de, chisquare,"Du hast den Ausdruck für die ~m-Statistik korrekt identif
 
 praise(de, square,"Du hast die ~m-Statistik korrekt in die ~m-Statistik umgewandelt."-[z, chi^2]).
 
-blame(de, pool, "Das Ergebnis entspricht der gepoolten Erfolgswahrscheinlichkeit ~m. Da ist ein Zwischenergebnis, das im Nenner der ~m-Statistik verwendet wird, aber die Lösung ist noch nicht vollständig."-[p_pool, z]).
+blame(de, pool, "Vorsicht, das Ergebnis entspricht der gepoolten Erfolgswahrscheinlichkeit ~m. Das ist ein Zwischenergebnis, das im Nenner der ~m-Statistik verwendet wird, aber die Lösung ist noch nicht vollständig."-[p_pool, z]).
 
-blame(de, stop_z, "Das Ergebnis entspricht der ~m-Statistik. Die ~m-Statistik erhält man, indem man diesen Wert quadriert."-[z, chi^2]).
+blame(de, stop_z, "Vorsicht, das Ergebnis entspricht der ~m-Statistik. Die ~m-Statistik erhält man, indem man diesen Wert quadriert."-[z, chi^2]).
 
-blame(de, neg_z, "Das Ergebnis entspricht der negativen ~m-Statistik. Die ~m-Statistik erhält man, indem man diesen Wert quadriert."-[z, chi^2]).
+blame(de, neg_z, "Vorsicht, das Ergebnis entspricht der negativen ~m-Statistik. Die ~m-Statistik erhält man, indem man diesen Wert quadriert."-[z, chi^2]).
 
-blame(de, total_n, "Im Nenner stimmt etwas nicht. Bitte beachte, dass ~m nicht zu ~m vereinfacht werden kann."-[frac(1, n_a) + frac(1, n_b), frac(1, n_a + n_b)]).
+blame(de, total_n, "Vorsicht, im Nenner stimmt etwas nicht. Bitte beachte, dass ~m nicht zu ~m vereinfacht werden kann."-[frac(1, n_a) + frac(1, n_b), frac(1, n_a + n_b)]).
