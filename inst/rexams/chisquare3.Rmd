@@ -8,10 +8,10 @@ library(mathml)
 library(htmltools)
 library(mistakes)
 
-hook(n_a, subscript(N, A))
-hook(n_b, subscript(N, B))
-hook(x_a, subscript(X, A))
-hook(x_b, subscript(X, B))
+hook(n_a, subscript(n, "A"))
+hook(n_b, subscript(n, "B"))
+hook(x_a, subscript(X, "A"))
+hook(x_b, subscript(X, "B"))
 
 task <- "chisquare3"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
@@ -46,7 +46,7 @@ Question
 
 In a randomized controlled trial, group A is composed of `r n_a` patients, with `r x_a` showing treatment success, 
 and group B is composed of `r n_b` patients, with `r x_b` treatment successes.
-Determine the pooled success probability, $p_{\mathrm{pool}}$.
+Determine the pooled success rate $p_{\mathrm{pool}}$.
 
 ```{r questionlist, echo = FALSE, results = "asis"}
 answerlist(t$alternatives, markup="markdown")
@@ -54,7 +54,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Solution
 ========
-The pooled success probability is calculated by: `r t$solution`
+The pooled success rate is calculated by: `r t$solution`
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
@@ -66,3 +66,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: chisquare3
+exshuffle: TRUE
