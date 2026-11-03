@@ -1,6 +1,9 @@
 # Interim solution until we have proper gettext support
 lang <- function()
 {
+  if(exists("LANGUAGE", where=.GlobalEnv))
+    return(language)
+  
   if(exists("params"))
     if(!is.na(params$lang))
       return(params$lang)
