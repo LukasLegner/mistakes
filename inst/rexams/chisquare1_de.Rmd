@@ -58,7 +58,7 @@ t <- prepare(task=task, S)
 sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
 ```
 
-Aufgabe
+Question
 ========
 
 Wir betrachten eine randomisierte kontrollierte Studie mit `r n` Patienten.
@@ -74,7 +74,7 @@ in beiden Gruppen gleich sind.
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 Die $\chi^2$-Statistik wird folgendermaßen berechnet: `r t$solution`
 

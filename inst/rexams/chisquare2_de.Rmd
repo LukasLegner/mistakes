@@ -61,7 +61,7 @@ t <- prepare(task=task, S)
 sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
 ```
 
-Aufgabe
+Question
 ========
 
 Ein zweiseitiger $z$-Test zum Vergleich der Erfolgsraten zweier Behandlungsgruppen ergibt $z = `r sprintf("%.2f", z)`$.
@@ -71,7 +71,7 @@ Wie lautet der $p$-Wert des entsprechenden $\chi^2$-Tests mit $df=1$?
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 Der $p$-Wert des $\chi^2$-Tests wird folgendermaßen berechnet: `r t$solution`
 

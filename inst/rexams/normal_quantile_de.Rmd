@@ -49,7 +49,7 @@ sol <- format_feedback(
 )
 ```
 
-Aufgabe
+Question
 ========
 
 Wir betrachten die Normalverteilung $X \sim N\left(\mu=`r sprintf("%.1f", mu)`, \sigma^2=`r sprintf("%.1f", sigma^2)`\right)$. 
@@ -60,7 +60,7 @@ Welches $x$ ist größer als $p=$ `r round(p * 100)`% der Realisierungen?
 exams::answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 
 Das `r round(p *100)`%-Quantil wird berechnet durch: `r t$solution`

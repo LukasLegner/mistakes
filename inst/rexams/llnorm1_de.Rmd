@@ -49,7 +49,7 @@ sol <- format_feedback(
 )
 ```
 
-Aufgabe
+Question
 ========
 
 Die gängige Standardtherapie zur Behandlung von Depressionen
@@ -63,7 +63,7 @@ Behandlungserfolg erzielt wird.
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 
 Die Anzahl der Behandlungserfolge kann durch die Normalverteilung

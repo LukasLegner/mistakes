@@ -43,7 +43,7 @@ sol <- format_feedback(
 )
 ```
 
-Aufgabe
+Question
 ========
 Welcher um den Mittelwert symmetrische IQ-Bereich beinhaltet `r percentage`% 
 der Bevölkerung ($\mu$ = 100, $\sigma$ = 15)?
@@ -52,7 +52,7 @@ der Bevölkerung ($\mu$ = 100, $\sigma$ = 15)?
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 Der Bereich wird folgendermaßen berechnet: `r t$solution`
 
