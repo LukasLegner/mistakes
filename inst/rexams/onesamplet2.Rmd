@@ -1,0 +1,62 @@
+---
+title: "Standard error"
+params:
+  lang: "en"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "onesamplet2"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+hook(s_D, subscript(s, D))
+hook(n, N)
+
+## DATA GENERATION
+repeat
+{
+  n <- sample(10:20, 1)
+  s_D <- round(runif(1, min = 6, max = 12), 1)
+
+  Q <- quote(search(onesamplet2, tratio(s_D, n),
+    .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+```
+
+Question
+========
+Consider a sample of $N=`r n`$ observations with sample standard deviation $s_D=`r s_D`$. 
+Determine the estimated standard error of the sample mean. 
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The standard error is given by : `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: onesamplet2
