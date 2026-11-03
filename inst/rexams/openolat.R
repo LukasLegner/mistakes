@@ -5,9 +5,8 @@ oldname <- "mistakes"
 newname <- "fixed"
 
 myexam <- list(
-  lqnorm="lqnorm.Rmd",
-  tratio="tratio.Rmd",
-  pvalue="pvalue.Rmd")
+  tratio="tratio.de.Rmd",
+  lqnorm="lpnorm.Rmd")
 
 exams2openolat(myexam,
   dir=oodir, name=oldname, 

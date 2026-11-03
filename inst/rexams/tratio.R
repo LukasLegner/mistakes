@@ -58,5 +58,5 @@ repeat
 }
 
 t <- prepare(task=task, S) # 5 alternatives only
-sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")

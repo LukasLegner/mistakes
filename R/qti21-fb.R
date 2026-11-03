@@ -22,10 +22,16 @@ fix_feedback <- function(oldzip, newzip)
 
 # Format the feedback in nice HTML
 #
-format_feedback <- function(correct, explanations, praise, blame, extra)
+format_feedback <- function(correct, explanations, bugs, praise, blame, extra)
 {
-  p_corr <- lapply(correct, FUN=tags$p)
-  
+  pp <- function(c, b)
+  {
+    if(length(b) > 0)
+       names(b) <- sprintf("bug%i", 1:length(b))
+    do.call(tags$p, c(c, as.list(b)))
+  }
+  p_corr <- mapply(correct, bugs, FUN=pp, SIMPLIFY=FALSE)
+
   # Explanations are already in HTML format (e.g., include MathML), so we
   # just wrap them into a paragraph.
   #
@@ -135,6 +141,7 @@ prepare <- function(task, S, N=length(S))
   p <- list(length(S))
   b <- list(length(S))
   ex <- list(length(S))
+  bugs <- list(length(S))
   for(i in 1:length(S))
   {
     Si <- S[[i]]$S
@@ -151,6 +158,7 @@ prepare <- function(task, S, N=length(S))
     p[[i]] <- praise(task, Pi)
     b[[i]] <- blame(task, Pi)
     ex[[i]] <- feedback(task, Ei)
+    bugs[[i]] <- codes(Pi)
   }
 
   # Shuffle
@@ -163,6 +171,6 @@ prepare <- function(task, S, N=length(S))
       break
   }
 
-  list(alternatives=a[o], correct=c[o], explanations=e[o], praise=p[o],
-    blame=b[o], extra=ex[o], solution=s[o][which(c[o])[1]])
+  list(alternatives=a[o], correct=c[o], explanations=e[o], bugs=bugs[o],
+    praise=p[o], blame=b[o], extra=ex[o], solution=s[o][which(c[o])[1]])
 }

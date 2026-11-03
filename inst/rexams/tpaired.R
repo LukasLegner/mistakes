@@ -49,5 +49,5 @@ row.names(tab) <- c("Mean", "SD")
 
 
 t <- prepare(task=task, S)
-sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
