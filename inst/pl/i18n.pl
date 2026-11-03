@@ -6,4 +6,4 @@ lang(L) :-
   !, atom_string(L, L0).
 
 % Silent
-% lang(en).
+lang(en).
