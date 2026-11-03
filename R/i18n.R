@@ -1,12 +1,12 @@
 # Interim solution until we have proper gettext support
 lang <- function()
 {
-  if(exists("LANGUAGE", where=.GlobalEnv))
-    return(LANGUAGE)
-  
   if(exists("params"))
     if(!is.na(params$lang))
       return(params$lang)
+  
+  if(exists("LANGUAGE", where=.GlobalEnv))
+    return(LANGUAGE)
   
   if(Sys.getenv("LANGUAGE") %in% c("", "en", "en_GB", "en_US"))
     return("en")
