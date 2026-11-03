@@ -2,7 +2,7 @@
 lang <- function()
 {
   if(exists("LANGUAGE", where=.GlobalEnv))
-    return(language)
+    return(LANGUAGE)
   
   if(exists("params"))
     if(!is.na(params$lang))
