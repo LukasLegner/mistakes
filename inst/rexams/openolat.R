@@ -4,10 +4,12 @@ oodir <- "."
 oldname <- "mistakes"
 newname <- "fixed"
 
+# R exams does not read the YAML parameters of the Rmd files
+LANGUAGE <<- "de"
+
 myexam <- list(
-  lqnorm="lqnorm.Rmd",
-  tratio="tratio.Rmd",
-  pvalue="pvalue.Rmd")
+  tratio="tratio.de.Rmd",
+  lqnorm="lpnorm.Rmd")
 
 exams2openolat(myexam,
   dir=oodir, name=oldname, 

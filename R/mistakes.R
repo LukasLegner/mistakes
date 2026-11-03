@@ -197,3 +197,20 @@ pvalue <- function(x)
   
   sprintf("%.2f", x)
 }
+
+.codes1 <- function(expr)
+{
+  if(!is.call(expr))
+    stop("codes: expression is not a call")
+  
+  if(expr[[1]] == "expert")
+    return(as.character(paste(as.character(expr[[2]]), collapse=".")))
+
+  if(expr[[1]] == "buggy")
+    return(as.character(paste(as.character(expr[[2]]), collapse=".")))
+  
+  stop("codes: expression should be expert/2 or buggy/2")
+}
+
+codes <- function(expr)
+  Vectorize(.codes1)(expr)

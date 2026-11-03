@@ -63,7 +63,7 @@ tab <- data.frame(A = c(sprintf("%.1f", c(m_A, s_A)), n_A),
 row.names(tab) <- c("Mean", "SD", "N")
 
 t <- prepare(task=task, S)
-sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
 ```
 

@@ -4,13 +4,13 @@ params:
   lang: "de"
 ---
 
-````{r, echo=FALSE}
+````{r, include=FALSE}
 tratio_R <- system.file(file.path("rexams", "tratio.R"), package="mistakes")
 source(tratio_R, local=TRUE)
 ````
 
-Aufgabe
-=======
+Question
+========
 Wir betrachten eine klinische Studie mit einer Gruppe von 
 insgesamt `r n` Patient:innen. In der Studie wird eine Depressionstherapie
 ausprobiert wird, die sich besonders auf krankhaftes Grübeln konzentriert ("rumination-focused" kognitive Verhaltenstherapie). Primäre
@@ -36,8 +36,8 @@ den $t$-Wert.
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Antwortalternativen
-===================
+Solution
+========
 Die $t$-Statistik wird wie folgt berechnet: `r t$solution`
 
 ```{r solutionlist, echo=FALSE, results="asis"}

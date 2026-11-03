@@ -53,7 +53,7 @@ tab <- data.frame(Concentration = c(sprintf("%.1f", c(x_bar, s_x)), n))
 row.names(tab) <- c("Mean", "SD", "N")
 
 t <- prepare(task=task, S)
-sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
 ```
 

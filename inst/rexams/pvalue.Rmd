@@ -68,7 +68,7 @@ rolog::consult(system.file("rexams/pvalue.pl", package="mistakes"))
 Q <- quote(search(pvalue, pvalue(d, mu_d, s_d, n, alpha), .S, .R, .P, .E))
 S <- findall(Q, options=list(preproc=as.rolog), env=environment())
 t <- prepare(task="pvalue", S)
-sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
 ```
 
 Question

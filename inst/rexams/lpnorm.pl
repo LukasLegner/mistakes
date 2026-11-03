@@ -44,7 +44,7 @@ blame(en, upper, "Careful, you calculated the upper tail.").
 
 blame(en, paren, "Careful, you forgot the parentheses around the numerator and the denominator of the fraction.").
 
-blame(en, sqrt(X), "Careful, you used the variance ~m instead of the standard deviation ~m."-[sigma2, sigma]).
+blame(en, sqrt(X), "Careful, you used the variance ~m instead of the standard deviation ~m."-[X, sqrt(X)]).
 
 praise(de, lpnorm, na).
 
@@ -56,4 +56,4 @@ blame(de, upper, "Vorsicht, du hast den oberen Randbereich berechnet.").
 
 blame(de, paren, "Vorsicht, du hast die Klammern um den Zähler und den Nenner des Bruchs vergessen.").
 
-blame(de, sqrt(X), "Vorsicht, du hast die Varianz ~m statt der Standardabweichung ~m verwendet."-[sigma2, sigma]).
+blame(de, sqrt(X), "Vorsicht, du hast die Varianz ~m statt der Standardabweichung ~m verwendet."-[X, sqrt(X)]).
