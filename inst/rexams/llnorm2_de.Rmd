@@ -41,7 +41,7 @@ sol <- format_feedback(
 )
 ```
 
-Aufgabe
+Question
 ========
 
 Der Intelligenzquotient (IQ) hat in der allgemeinen Bevölkerung einen Mittelwert
@@ -52,7 +52,7 @@ Welcher Anteil der Bevölkerung hat einen IQ zwischen `r x1`  und `r x2`?
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 Der Anteil wird folgendermaßen berechnet: `r t$solution`
 

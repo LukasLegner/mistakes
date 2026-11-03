@@ -43,7 +43,7 @@ sol <- format_feedback(
 )
 ```
 
-Aufgabe
+Question
 ========
 
 Im ICD-11 wird eine leichte Störung der Intelligenzentwicklung (6A00.0) durch 
@@ -56,7 +56,7 @@ Welcher Anteil der Bevölkerung fällt in diesen Bereich?
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 Der Anteil wird folgendermaßen berechnet: `r t$solution`
 

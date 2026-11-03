@@ -74,7 +74,7 @@ Welcher Anteil der Realisierungen liegt unter $`r sprintf("%.1f", C)`$?
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 Der Anteil wird berechnet durch: `r t$solution`
 

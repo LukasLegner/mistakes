@@ -43,7 +43,7 @@ t <- prepare(task=task, S)
 sol <- format_feedback(t$correct, t$explanations, t$praise, t$blame, t$extra)
 ```
 
-Aufgabe
+Question
 ========
 
 In einer randomisierten kontrollierten Studie besteht Gruppe A aus `r n_a`
@@ -55,7 +55,7 @@ Bestimme die gepoolte Erfolgsrate $p_{\mathrm{pool}}$.
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 Die gepoolte Erfolgsrate wird folgendermaßen berechnet: `r t$solution`
 

@@ -44,7 +44,7 @@ sol <- format_feedback(
 )
 ```
 
-Aufgabe
+Question
 ========
 
 Eine normalverteilte Zufallsvariable $X$ besitzt den Mittelwert
@@ -57,7 +57,7 @@ Realisierungen beinhaltet.
 answerlist(t$alternatives, markup="markdown")
 ```
 
-Lösung
+Solution
 ========
 
 Das Intervall wird berechnet durch: `r t$solution`
