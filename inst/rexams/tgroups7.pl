@@ -1,4 +1,4 @@
-:- module(tgroups1, []).
+:- module(tgroups7, []).
 :- encoding(utf8).
 
 :- discontiguous intermediate/1, expert/4, buggy/4.
