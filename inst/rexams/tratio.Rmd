@@ -4,7 +4,10 @@ params:
   lang: "en"
 ---
 
-`r source("tratio.R")`
+````{r, echo=FALSE}
+tratio_R <- system.file(file.path("rexams", "tratio.R"), package="mistakes")
+source(tratio_R, local=TRUE)
+````
 
 Question
 ========
