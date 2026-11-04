@@ -21,7 +21,7 @@ buggy(X, Y, outside_range, []) :-
     Y = pnorm(dfrac(X1 - 100, 15)) + (1 - pnorm(dfrac(X2 - 100, 15))).
 
 buggy(X, Y, below_z2, []) :-
-    X = llnorm2(X1, X2),
+    X = llnorm2(_X1, X2),
     Y = pnorm(dfrac(X2 - 100, 15)).
 
 % Feedback
