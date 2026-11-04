@@ -24,7 +24,7 @@ expert(X, Y, sd, []) :-
 
 expert(X, Y, zfrac, []) :-
     X = invz(Z, Mu, Sigma),
-    Y = round(Mu + Z * Sigma, 1).
+    Y = round(Mu + Z * Sigma, 2).
 
 % Mistakes
 

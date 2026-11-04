@@ -10,8 +10,6 @@ library(mathml)
 library(htmltools)
 library(mistakes)
 
-hook(sd, sigma)
-
 perc <- function(p) {
   sprintf("%.1f%%", p*100)
 }
@@ -26,9 +24,9 @@ hook(perc(.X), "100%" * .X)
 ## DATA GENERATION
 repeat
 {
-  sd <- 15
+  sigma <- 15
   mu <- 100
-  Q <- quote(search(llnorm3, llnorm3(mu, sd), .S, .R, .P, .E))
+  Q <- quote(search(llnorm3, llnorm3(mu, sigma), .S, .R, .P, .E))
   S <- findall(Q, options=list(preproc=as.rolog), env=environment())
 
   if(problems(S))
