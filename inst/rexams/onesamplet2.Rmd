@@ -41,7 +41,7 @@ sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
 Question
 ========
 Consider a sample of $N=`r n`$ observations with sample standard deviation $s_D=`r s_D`$. 
-Determine the estimated standard error of the sample mean. 
+Determine the standard error of the sample mean. 
 
 ```{r questionlist, echo = FALSE, results = "asis"}
 answerlist(t$alternatives, markup="markdown")
