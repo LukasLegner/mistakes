@@ -49,7 +49,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Solution
 ========
-The standard error is given by : `r t$solution`
+The standard error is given by: `r t$solution`
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 answerlist(sol, markup="markdown")
