@@ -61,7 +61,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Solution
 ========
-The $t$-ratio is given by : `r t$solution`
+The $t$-ratio is given by: `r t$solution`
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 answerlist(sol, markup="markdown")
