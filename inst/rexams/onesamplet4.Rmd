@@ -1,0 +1,73 @@
+---
+title: "Clinical Study on Depression"
+params:
+  lang: "en"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "onesamplet4"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+hook(xbar, mean(X))
+hook(s_D, subscript(s, D))
+hook(mu0, subscript(mu, 0L))
+hook(n, N)
+
+## DATA GENERATION
+repeat
+{
+  n <- as.integer(round(runif(1, min=20, max=45)))
+  mu0 <- round(runif(1, min = 9, max = 15), 1)
+  s_D   <- round(runif(1, min = 2, max = 5), 1)    
+
+  t <- runif(1, min = 0.5, max = 3.0)
+  xbar <- round(mu0 - t * s_D / sqrt(n), 1)
+  tratio <- (xbar - mu0) / (s_D / sqrt(n))
+  if(tratio > - 0.5 || tratio < -3.0)
+    next
+
+  Q <- quote(search(onesamplet4, tratio(xbar, mu0, s_D, n), .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+```
+
+Question
+========
+In a clinical study, $N=`r n`$ patients report after treatment a mean anxiety score of $\overline{X}=`r xbar`$ 
+on the Generalized Anxiety Disorder-7 (GAD-7), with a standard deviation of $s_D=`r s_D`$. 
+The mean GAD-7 score in a comparable clinical population is $\mu_0=`r mu0`$. 
+To test whether the mean post-treatment anxiety score is lower than this reference value, 
+calculate the corresponding $t$-ratio.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The $t$-ratio is given by: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: onesamplet4
