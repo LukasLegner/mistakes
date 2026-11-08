@@ -38,7 +38,7 @@ praise(en, tratio, "You correctly calculated the denominator of the $t$-statisti
 
 blame(en, sd, "Careful, you used the standard deviation instead of the standard error in the denominator.").
 
-blame(en, mu, "Careful, you forgot to subtract ~m from ~m."-[mu_0, xbar]).
+blame(en, mu, "Careful, you forgot to subtract ~m from ~m."-[mu0, xbar]).
 
 blame(en, squareroot, "Careful, you forgot to take the square root of $N$ when calculating the standard error.").
 
