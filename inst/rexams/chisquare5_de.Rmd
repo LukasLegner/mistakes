@@ -15,6 +15,11 @@ hook(n_b, subscript(n, "B"))
 hook(x_a, subscript(X, "A"))
 hook(x_b, subscript(X, "B"))
 
+perc <- function(p) {
+  sprintf("%.0f%%", p*100)
+}
+hook(perc(.X), "100%" * .X)
+
 task <- "chisquare5"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
 rolog::consult(system.file(plfile, package="mistakes"))
@@ -27,7 +32,7 @@ repeat
 
   if(n_a == n_b)
     next
-  x_a <- n_a - as.integer(round(runif(1, min=5, max=n_a - 5)))
+  x_a <- as.integer(round(runif(1, min=5, max=n_a - 5)))
   x_b <- as.integer(round(runif(1, min=5, max=n_b - 5)))
 
   Q <- quote(search(chisquare5, chisquare5(n_a, n_b, x_a, x_b), .S, .R, .P, .E))
@@ -46,7 +51,7 @@ sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$e
 Question
 ========
 
-In einer randomisierten kontrollierten Studie besteht Gruppe A aus `r n_a` Patienten, von denen `r x_a` einen Behandlungsmisserfolg aufweisen,
+In einer randomisierten kontrollierten Studie besteht Gruppe A aus `r n_a` Patienten, von denen `r n_a - x_a` einen Behandlungsmisserfolg aufweisen,
 und Gruppe B besteht aus `r n_b` Patienten, von denen `r x_b` einen Behandlungserfolg aufweisen.
 Bestimme die gepoolte Erfolgsrate $p_{\mathrm{pool}}$.
 

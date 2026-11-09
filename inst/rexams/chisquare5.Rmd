@@ -13,6 +13,11 @@ hook(n_b, subscript(n, "B"))
 hook(x_a, subscript(X, "A"))
 hook(x_b, subscript(X, "B"))
 
+perc <- function(p) {
+  sprintf("%.0f%%", p*100)
+}
+hook(perc(.X), "100%" * .X)
+
 task <- "chisquare5"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
 rolog::consult(system.file(plfile, package="mistakes"))

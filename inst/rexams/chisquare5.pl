@@ -7,29 +7,29 @@ intermediate(chisquare5/4).
 
 expert(X, Y, pool, []) :-
     X = chisquare5(N_A, N_B, X_A, X_B),
-    Y = dfrac(X_A + X_B, N_A + N_B).
+    Y = perc(dfrac(X_A + X_B, N_A + N_B)).
 
 % Mistakes
 
 % Only failures of group A
 buggy(X, Y, only_a_fail, []) :-
     X = chisquare5(N_A, N_B, X_A, _X_B),
-    Y = dfrac(N_A - X_A, N_A + N_B).
+    Y = perc(dfrac(N_A - X_A, N_A + N_B)).
 
 % Only successes of group B
 buggy(X, Y, only_b, []) :-
     X = chisquare5(N_A, N_B, _X_A, X_B),
-    Y = dfrac(X_B, N_A + N_B).
+    Y = perc(dfrac(X_B, N_A + N_B)).
 
-% Only successes of group B
-buggy(X, Y, only_b, []) :-
+% Only successes of group A
+buggy(X, Y, only_a, []) :-
     X = chisquare5(N_A, N_B, X_A, _X_B),
-    Y = dfrac(X_A, N_A + N_B).
+    Y = perc(dfrac(X_A, N_A + N_B)).
     
 % Failures of group A instead of successes
 buggy(X, Y, mix_failsucc, []) :-
     X = chisquare5(N_A, N_B, X_A, X_B),
-    Y = dfrac(N_A - X_A + X_B, N_A + N_B).
+    Y = perc(dfrac(N_A - X_A + X_B, N_A + N_B)).
 
 % Feedback
 
@@ -63,7 +63,7 @@ blame(de, only_b, "Vorsicht, das Ergebnis berücksichtigt nur die in Gruppe B
     beobachteten Erfolge. Die gepoolte Erfolgsrate muss auch die ~m 
     Erfolge aus Gruppe A berücksichtigen." - [x_a]).
     
-blame(de, only_b, "Vorsicht, das Ergebnis berücksichtigt nur die in Gruppe A 
+blame(de, only_a, "Vorsicht, das Ergebnis berücksichtigt nur die in Gruppe A 
     beobachteten Erfolge. Die gepoolte Erfolgsrate muss auch die ~m 
     Erfolge aus Gruppe B berücksichtigen." - [x_b]).
 
