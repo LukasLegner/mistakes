@@ -1,0 +1,84 @@
+---
+title: "Vergleich von Erfolgsraten"
+params:
+  lang: de
+---
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(n_a, subscript(n, "A"))
+hook(n_b, subscript(n, "B"))
+hook(x_a, subscript(X, "A"))
+hook(x_b, subscript(X, "B"))
+hook(p_a, subscript(p, "A"))
+hook(p_b, subscript(p, "B"))
+hook(p_pool, subscript(p, "pool"))
+
+perc <- function(p) {
+  sprintf("%.0f%%", p*100)
+}
+hook(perc(.X), "100%" * .X)
+
+task <- "chisquare6"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+## DATA GENERATION
+repeat
+{
+  p_a <- as.integer(round(runif(1, min=40, max=70)))/100
+  p_b <- as.integer(round(runif(1, min=40, max=70)))/100
+  if (p_a == p_b)
+    next
+  
+  n_a <- n_b <- as.integer(round(runif(1, min=20, max=45)))
+  N <- n_a + n_b
+  x_a <- p_a * n_a
+  x_b <- p_b * n_b
+
+  if (x_a %% 1 != 0 || x_b %% 1 != 0)
+    next
+
+
+  Q <- quote(search(chisquare6, chisquare6(p_a, p_b, N), .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+```
+
+Question
+========
+In einem Verhaltensexperiment werden `r N` Teilnehmende randomisiert zwei gleich großen
+experimentellen Bedingungen zugeteilt. Die beobachtete Erfolgsrate in Bedingung A
+beträgt `r perc(p_a)` und in Bedingung B `r perc(p_b)`.
+Bestimme die $\chi^2$-Statistik, um zu testen, ob die Erfolgsraten in den beiden Bedingungen gleich sind.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+Die $\chi^2$-Statistik wird folgendermaßen berechnet: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: chisquare6
+exshuffle: TRUE
