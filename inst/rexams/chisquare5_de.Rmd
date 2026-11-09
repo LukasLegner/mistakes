@@ -1,0 +1,76 @@
+---
+title: "Vergleich von Erfolgsraten"
+params:
+  lang: de
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(n_a, subscript(n, "A"))
+hook(n_b, subscript(n, "B"))
+hook(x_a, subscript(X, "A"))
+hook(x_b, subscript(X, "B"))
+
+perc <- function(p) {
+  sprintf("%.0f%%", p*100)
+}
+hook(perc(.X), "100%" * .X)
+
+task <- "chisquare5"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+## DATA GENERATION
+repeat
+{
+  n_a <- as.integer(round(runif(1, min=20, max=45)))
+  n_b <- as.integer(round(runif(1, min=20, max=45)))
+
+  if(n_a == n_b)
+    next
+  x_a <- as.integer(round(runif(1, min=5, max=n_a - 5)))
+  x_b <- as.integer(round(runif(1, min=5, max=n_b - 5)))
+
+  Q <- quote(search(chisquare5, chisquare5(n_a, n_b, x_a, x_b), .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+```
+
+Question
+========
+
+In einer randomisierten kontrollierten Studie besteht Gruppe A aus `r n_a` Patienten, von denen `r n_a - x_a` einen Behandlungsmisserfolg aufweisen,
+und Gruppe B besteht aus `r n_b` Patienten, von denen `r x_b` einen Behandlungserfolg aufweisen.
+Bestimme die gepoolte Erfolgsrate $p_{\mathrm{pool}}$.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+Die gepoolte Erfolgsrate wird folgendermaßen berechnet: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: chisquare5
+exshuffle: TRUE
