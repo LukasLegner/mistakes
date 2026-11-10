@@ -1,5 +1,5 @@
 ---
-title: "Mann-Whitney Critical Region"
+title: "Mann-Whitney: Critical Region"
 ---
 
 ```{r, include=FALSE}
@@ -10,20 +10,20 @@ library(mistakes)
 library(knitr)
 
 critical <- function(lower, upper) {
-  sprintf("$(U <= %s,U >= %s)$", lower, upper)
+  sprintf("$U ≤ %s$ or $U ≥ %s$", lower, upper)
 }
 
 upper_only <- function(upper) {
-  sprintf("$U >= %s$", upper)
+  sprintf("$U ≥ %s$", upper)
 }
 
 hook(n_a, subscript(n, "A"))
 hook(n_b, subscript(n, "B"))
 hook(u, U)
-hook(u_crit, subscript(U, crit))
+hook(u_crit, subscript(U, upper))
 hook(u_lower, subscript(U, lower))
-hook(critical(.Lower, .Upper), c(u <= .Lower, u >= .Upper))
-hook(upper_only(.Upper), c(u >= .Upper))
+hook(critical(.Lower, .Upper), u <= .Lower | u >= .Upper)
+hook(upper_only(.Upper), u >= .Upper)
 
 task <- "mannwhitney3"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
@@ -101,3 +101,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: mannwhitney3
+exshuffle: TRUE
