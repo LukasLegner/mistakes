@@ -1,0 +1,89 @@
+---
+title: "Mann-Whitney U-test"
+params:
+  lang: de
+---
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "mannwhitney1"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+cardinality <- sum
+ustat <- function(a, b)
+  cardinality(outer(a, b, `>`))
+
+hook(ustat)
+hook(cardinality(.A), abs(.A))
+hook(n_a, subscript(n, "A"))
+hook(n_b, subscript(n, "B"))
+hook(as.character(.X), .X)
+
+## DATA GENERATION
+repeat
+{
+  n_a <- 5L
+  n_b <- 6L
+
+  x <- sample(10:99, n_a + n_b, replace=FALSE)
+
+  a <- sort(x[1:n_a])
+  b <- sort(x[n_a + 1:n_b])
+  u <- sum(outer(a, b, ">"))
+
+  if(u <= 2)
+    next
+  if(u >= n_a * n_b - 2)
+    next
+
+  Q <- quote(search(mannwhitney1, mannwhitney1(a, b, n_a, n_b),
+                  .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+```
+
+Question
+========
+
+Zwei unabhängige Gruppen weisen folgende Beobachtungen auf:
+
+Group A: `r paste(a, collapse=", ")`
+
+Group B: `r paste(b, collapse=", ")`
+
+Es gibt keine Ties. Bestimme die Mann-Whitney-$U$-Statistik, wobei höhere Werte
+als Siege zählen.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+
+Die Mann-Whitney-$U$-Statistik für Gruppe A wird berechnet, indem alle paarweisen Vergleiche gezählt werden, die Gruppe A gewinnt: 
+`r t$solution`
+
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: mannwhitney1
+exshuffle: TRUE
