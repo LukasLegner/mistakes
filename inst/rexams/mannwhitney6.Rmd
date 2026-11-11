@@ -1,5 +1,5 @@
 ---
-title: "Mann-Whitney Comparison with Ties"
+title: "Mann-Whitney-$U$ with Ties"
 ---
 
 ```{r, include=FALSE}
@@ -75,13 +75,11 @@ or treatment as usual (Therapy B), with `r n_a` and `r n_b` patients in each tre
 respectively. At the end of the treatment, anxiety symptoms were assessed 
 using the Generalized Anxiety Disorder-7 (GAD-7) questionnaire, 
 with lower scores indicating less severe anxiety symptoms.
-Comparing each patient's GAD-7 score from Treatment A with each patient's score 
-from Treatment B resulted in `r n_a * n_b` pairwise comparisons. 
-Patients receiving Therapy A had lower scores in `r wins_a` comparisons, 
-patients receiving Treatment B had lower scores in `r wins_b` comparisons, 
-and `r ties` comparisons were ties.
+Comparing each patient's GAD-7 score, patients receiving Therapy A had lower 
+scores in `r wins_a` comparisons, patients receiving Treatment B had lower 
+scores in `r wins_b` comparisons, and `r ties` comparisons were ties.
 
-Estimate the competing probability for Therapy A.
+Calculate the competing proportion for Therapy A.
 
 ```{r questionlist, echo = FALSE, results = "asis"}
 answerlist(t$alternatives, markup="markdown")
@@ -89,7 +87,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Solution
 ========
-The competing probability is calculated by dividing the $U$-statistic 
+The competing proportion is calculated by dividing the $U$-statistic 
 by the number of pairwise comparisons: `r t$solution`
 
 
