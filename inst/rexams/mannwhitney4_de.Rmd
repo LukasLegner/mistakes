@@ -1,5 +1,7 @@
 ---
 title: "Mann-Whitney $z$-Approximation"
+params:
+  lang: de
 ---
 
 ```{r, include=FALSE}
