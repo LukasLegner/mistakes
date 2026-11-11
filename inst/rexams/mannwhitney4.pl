@@ -31,6 +31,11 @@ buggy(X, Y, no_center, []) :-
     X = mannwhitney4(U, NA, NB),
     Y = zstat(U, NA, NB).
 
+% Do not forget the parenthesis around the numerator.
+buggy(X, Y, numpar, []) :-
+    X = mannwhitney4(U, NA, NB),
+    Y = U - zstat(NA * NB / 2, NA, NB).
+
 % Feedback
 
 praise(en, numerator, "You correctly subtracted the expected value of ~m from the observed ~m."-[u, u]).
@@ -38,9 +43,11 @@ praise(en, zstat, "You correctly divided by the standard deviation.").
 blame(en, variance, "Careful, do not divide by the variance, but the standard deviation.").
 blame(en, reversed_sign, "Careful, do not subtract the observed ~m from the expected value, but the other way around."-[u]).
 blame(en, no_center, "Careful, do not forget to subtract the expected value ~m from ~m."-[n_a * n_b / 2, u]).
+blame(en, numpar, "Careful, do not forget the parenthesis around the numerator").
 
 praise(de, numerator, "Du hast den Erwartungswert von ~m korrekt vom beobachteten Wert von ~m subtrahiert."-[u, u]).
 praise(de, zstat, "Du hast korrekt durch die Standardabweichung dividiert.").
 blame(de, variance, "Vorsicht, du hast durch die Varianz statt durch die Standardabweichung dividiert.").
 blame(de, reversed_sign, "Vorsicht, subtrahiere nicht den beobachteten Wert von ~m vom Erwartungswert, sondern umgekehrt."-[u]).
 blame(de, no_center, "Vorsicht, vergiss nicht, den Erwartungswert ~m von ~m zu subtrahieren."-[n_a * n_b / 2, u]).
+blame(de, numpar, "Vorsicht, vergiss nicht die Klammer um den Zähler.").
