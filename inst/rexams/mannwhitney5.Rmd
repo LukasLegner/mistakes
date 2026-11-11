@@ -98,3 +98,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: mannwhitney5
+exshuffle: TRUE
