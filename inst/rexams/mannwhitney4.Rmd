@@ -92,3 +92,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: mannwhitney4
+exshuffle: TRUE

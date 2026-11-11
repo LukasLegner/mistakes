@@ -1,6 +1,6 @@
 :- module(mannwhitney4, []).
 
-:- discontiguous intermediate/1, expert/4, buggy/4, blame/2, praise/2.
+:- discontiguous intermediate/1, expert/4, buggy/4, blame/3, praise/3.
 
 % Solution of the problem
 intermediate(mannwhitney4/3).
@@ -33,12 +33,14 @@ buggy(X, Y, no_center, []) :-
 
 % Feedback
 
-praise(en, numerator, "Correctly subtracted the expected value of ~m from the observed ~m."-[u, u]).
-
-praise(en, zstat, "Correctly divided by the standard deviation.").
-
+praise(en, numerator, "You correctly subtracted the expected value of ~m from the observed ~m."-[u, u]).
+praise(en, zstat, "You correctly divided by the standard deviation.").
 blame(en, variance, "Careful, do not divide by the variance, but the standard deviation.").
-
 blame(en, reversed_sign, "Careful, do not subtract the observed ~m from the expected value, but the other way around."-[u]).
-
 blame(en, no_center, "Careful, do not forget to subtract the expected value ~m from ~m."-[n_a * n_b / 2, u]).
+
+praise(de, numerator, "Du hast den Erwartungswert von ~m korrekt vom beobachteten Wert von ~m subtrahiert."-[u, u]).
+praise(de, zstat, "Du hast korrekt durch die Standardabweichung dividiert.").
+blame(de, variance, "Vorsicht, du hast durch die Varianz statt durch die Standardabweichung dividiert.").
+blame(de, reversed_sign, "Vorsicht, subtrahiere nicht den beobachteten Wert von ~m vom Erwartungswert, sondern umgekehrt."-[u]).
+blame(de, no_center, "Vorsicht, vergiss nicht, den Erwartungswert ~m von ~m zu subtrahieren."-[n_a * n_b / 2, u]).
