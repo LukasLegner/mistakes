@@ -49,7 +49,7 @@ designed to improve their overall well-being.
 The researchers expected the mean well-being score at the end of the program to be higher 
 than the reference value of $\mu_0=`r mu0`$ points.
 At the end of the program, the students completed a questionnaire. 
-Their mean score is $\overline{X}=`r xbar`$ points, and their sample variance is $s_\mathrm{D}=`r s_d`$ points. 
+Their mean score is $\overline{X}=`r xbar`$ points, and their sample variance is $s_D=`r s_d`$ points. 
 Assuming that well-being scores are approximately normally distributed, 
 calculate the two-sided $95\%$ confidence interval. 
 
