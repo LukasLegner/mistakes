@@ -8,12 +8,12 @@ intermediate(confint1/4).
 intermediate(stderror/3).
 
 expert(X, Y, stderror, []) :-
-    X = confint1(Mu, Sigma, N, Perc),
-    Y = stderror(Mu, Sigma/sqrt(N), Perc).
+    X = confint1(Mu, Sigma, N, P),
+    Y = stderror(Mu, Sigma/sqrt(N), P).
 
 expert(X, Y, ci, []) :-
-    X = stderror(Mu, StandardError, Perc),
-    Q = denote(quant, qnorm(round(0.5, 1) + frac(Perc, 100) / 2), "with ~m denoting the quantile of the Normal distribution."),
+    X = stderror(Mu, StandardError, P),
+    Q = denote(quant, qnorm(round(0.5, 1) + P / 2), "with ~m denoting the quantile of the Normal distribution."),
     Y = interval(Mu - Q * StandardError, Mu + Q * StandardError).
 
 % Mistakes

@@ -11,7 +11,7 @@ library(htmltools)
 library(mistakes)
 
 hook(n, N)
-hook(perc, P)
+hook(p, P)
 hook(quant, z)
 
 task <- "confint1"
@@ -27,8 +27,8 @@ repeat
   sigma <- 15
   n <- as.integer(round(runif(1, min=25, max=50)))
   perc <- sample(c(50, 80, 90, 95), 1)
-  p <- qnorm((1 - (1 - perc/100 / 2)))
-  Q <- quote(search(confint1, confint1(mu, sigma, n, perc), .S, .R, .P, .E))
+  p <- perc / 100
+  Q <- quote(search(confint1, confint1(mu, sigma, n, p), .S, .R, .P, .E))
   S <- findall(Q, options=list(preproc=as.rolog), env=environment())
 
   if(problems(S))
