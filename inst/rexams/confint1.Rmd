@@ -1,0 +1,71 @@
+---
+title: "Confidence interval"
+params:
+  lang: en
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(n, N)
+hook(p, P)
+hook(quant, z)
+
+task <- "confint1"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+source("utility.R")
+
+## DATA GENERATION
+repeat
+{
+  mu <- 100
+  sigma <- 15
+  n <- as.integer(round(runif(1, min=25, max=50)))
+  perc <- sample(c(50, 80, 90, 95), 1)
+  p <- perc / 100
+  Q <- quote(search(confint1, confint1(mu, sigma, n, p), .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+```
+
+Question
+========
+
+IQ scores in the general population are approximately normally distributed, 
+with expectation $\mu=100$ and a standard deviation of $\sigma=15$. 
+For this exercise, assume that IQ scores at a particular school follow the same distribution.
+If we repeatedly draw samples of $N=`r n`$ from this school, 
+between which two values do the central $`r perc`\%$ of the sample means fall?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The `r perc`%-confidence interval is calculated by: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: confint1
+exshuffle: TRUE
