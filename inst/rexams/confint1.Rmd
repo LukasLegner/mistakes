@@ -12,7 +12,7 @@ library(mistakes)
 
 hook(n, N)
 hook(perc, P)
-hook(quant, Q)
+hook(quant, z)
 
 task <- "confint1"
 plfile <- file.path("rexams", sprintf("%s.pl", task))

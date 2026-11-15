@@ -20,7 +20,7 @@ expert(X, Y, ci, []) :-
 
 % Variance instead of standard deviation
 buggy(X, Y, variance, []) :-
-    X = confint1(Mu, Sigma, N, Perc),
+    X = confint1(Mu, Sigma, _N, Perc),
     Y = stderror(Mu, Sigma^2, Perc).
 
 % No square root
