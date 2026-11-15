@@ -1,0 +1,75 @@
+---
+title: "Confidence interval"
+params:
+  lang: en
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(n, N)
+hook(xbar, mean(X))
+hook(s_d, subscript(s, D))
+hook(quant, t)
+hook(mu0, subscript(mu, 0L))
+
+task <- "confint2"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+source("utility.R")
+
+## DATA GENERATION
+repeat
+{
+  n <- as.integer(round(runif(1, min=25, max=50)))
+  mu0 <- round(runif(1, 4, 7),1) 
+  xbar <- mu0 + round(runif(1, 0.5, 1.5),1)
+  s_d <- round(runif(1, 1.5, 2.5),1)
+  Q <- quote(search(confint2, confint2(n, xbar, s_d, mu0), .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+```
+
+Question
+========
+A sample of $N=`r n`$ university students took part in a semester-long program 
+designed to improve their overall well-being. 
+The researchers expected the mean well-being score at the end of the program to be higher 
+than the reference value of $\mu_0=`r mu0`$ points.
+At the end of the program, the students completed a questionnaire. 
+Their mean score is $\overline{X}=`r xbar`$ points, and their sample variance is $s_\mathrm{D}=`r s_d`$ points. 
+Assuming that well-being scores are approximately normally distributed, 
+calculate the two-sided $95\%$ confidence interval. 
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The two-sided $95\%$ confidence interval is calculated by: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: confint2
+exshuffle: TRUE
