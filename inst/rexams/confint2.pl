@@ -35,7 +35,7 @@ buggy(X, Y, nosqrt, []) :-
 
 % Feedback
 praise(en, stderror, "You correctly calculated the standard error of the mean 
-    by dividing the sample deviation by ~m."-[-sqrt(n)]).
+    by dividing the sample deviation by ~m."-[sqrt(n)]).
 
 praise(en, mean, "You have correctly used the mean of the population to calculate the central interval.").
 
