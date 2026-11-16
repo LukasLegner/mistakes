@@ -15,7 +15,7 @@ plfile <- file.path("rexams", sprintf("%s.pl", task))
 rolog::consult(system.file(plfile, package="mistakes"))
 
 hook(xbar, mean(X))
-hook(s_D, subscript(s, D))
+hook(s_X, subscript(s, X))
 hook(mu_0, subscript(mu, 0L))
 hook(n, N)
 
@@ -24,17 +24,17 @@ repeat
 {
   n <- as.integer(round(runif(1, min=20, max=45)))
   mu_0 <- round(runif(1, min = 18, max = 28), 1)
-  s_D   <- round(runif(1, min = 4, max = 9), 1)    
+  s_X   <- round(runif(1, min = 4, max = 9), 1)    
 
   t <- runif(1, min = 0.5, max = 3.0)
-  xbar <- round(mu_0 + t * s_D / sqrt(n), 1)
+  xbar <- round(mu_0 + t * s_X / sqrt(n), 1)
 
-  tratio <- (xbar - mu_0) / (s_D / sqrt(n))
+  tratio <- (xbar - mu_0) / (s_X / sqrt(n))
 
   if(tratio < 0.5 || tratio > 3.0)
     next
 
-  Q <- quote(search(onesamplet1, tratio(xbar, mu_0, s_D, n),
+  Q <- quote(search(onesamplet1, tratio(xbar, mu_0, s_X, n),
     .S, .R, .P, .E))
   S <- findall(Q, options=list(preproc=as.rolog), env=environment())
 
@@ -52,7 +52,7 @@ sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
 Question
 ========
 Consider a clinical study in which $N=`r n`$ patients have a mean depression score of $\overline{X}=`r xbar`$ on the Beck Depression Inventory, 
-with a standard deviation of $s_D=`r s_D`$. To test whether the mean depression score is higher than the reference value $\mu_0= `r n`$, 
+with a standard deviation of $s_X=`r s_X`$. To test whether the mean depression score is higher than the reference value $\mu_0= `r mu_0`$, 
 calculate the corresponding $t$-ratio.
 
 ```{r questionlist, echo = FALSE, results = "asis"}
@@ -72,3 +72,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: onesamplet1
+exshuffle: TRUE
