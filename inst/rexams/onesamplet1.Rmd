@@ -52,7 +52,7 @@ sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
 Question
 ========
 Consider a clinical study in which $N=`r n`$ patients have a mean depression score of $\overline{X}=`r xbar`$ on the Beck Depression Inventory, 
-with a standard deviation of $s_X=`r s_X`$. To test whether the mean depression score is higher than the reference value $\mu_0= `r n`$, 
+with a standard deviation of $s_X=`r s_X`$. To test whether the mean depression score is higher than the reference value $\mu_0= `r mu_0`$, 
 calculate the corresponding $t$-ratio.
 
 ```{r questionlist, echo = FALSE, results = "asis"}

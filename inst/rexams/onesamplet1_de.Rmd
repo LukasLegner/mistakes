@@ -55,7 +55,7 @@ Wir betrachten eine klinische Studie, in der $N=`r n`$ Patient:innen einen
 mittleren Depressionswert von $\overline{X}=`r xbar`$ im
 Beck-Depressions-Inventar aufweisen, mit einer Standardabweichung von 
 $s_X=`r s_X`$. Berechne die $t$-Statistik um zu testen, ob der mittlere 
-Depressionswert höher als der Referenzwert $\mu_0= `r n`$ ist.
+Depressionswert höher als der Referenzwert $\mu_0= `r mu_0`$ ist.
 
 ```{r questionlist, echo = FALSE, results = "asis"}
 answerlist(t$alternatives, markup="markdown")
