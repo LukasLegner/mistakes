@@ -1,0 +1,105 @@
+---
+title: "Confidence interval"
+params:
+  lang: en
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(s2_pool, subscript(s^2L, pool))
+hook(mu_A, subscript(mean(X), "A"))
+hook(mu_B, subscript(mean(X), "B"))
+hook(n_A, subscript(n, "A"))
+hook(n_B, subscript(n, "B"))
+hook(quant, subscript(t, "0.975"))
+hook(mu0, subscript(mu, 0L))
+hook(se, italic(SE))
+
+task <- "confint3"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+source("utility.R")
+
+## DATA GENERATION
+repeat
+{
+  n_A <- sample(15:25, 1)
+  n_B <- n_A + sample(-5:5, 1)
+
+  if(n_A == n_B)
+    next
+
+  mu_A <- round(runif(1, 25, 45), 1)
+  mu_B <- round(runif(1, 20, 40), 1)
+
+  s_A <- round(runif(1, 5, 12), 1)
+  s_B <- round(runif(1, 5, 12), 1)
+
+  s2_pool <- ((n_A - 1) * s_A^2 + (n_B - 1) * s_B^2) / (n_A + n_B - 2)
+  s2_pool <- round(s2_pool, 1)
+
+  quant <- round(qt(0.975, n_A + n_B - 2), 2)
+
+  Q <- quote(search(confint3, confint3(n_A, n_B, mu_A, mu_B, quant, s2_pool), .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+tab <- data.frame(
+  "Intervention" = c(sprintf("%.0f", n_A), sprintf("%.1f", mu_A), sprintf("%.1f", s_A)), 
+  "Control" = c(sprintf("%.0f", n_B), sprintf("%.1f", mu_B), sprintf("%.1f", s_B)),
+  check.names = FALSE
+)
+
+row.names(tab) <- c("Sample size", "Mean symptom score on CAPS-5", "Standard deviation")
+
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+```
+
+Question
+========
+
+In a clinical study of post-traumatic stress disorder (PTSD), 
+patients were randomly assigned to an intervention group or a control group. 
+For each patient, the PTSD was assessed with the CAPS (Clinician Administered PTSD Scale). 
+
+```{r, echo=FALSE}
+knitr::kable(tab, align=c("c", "c", "l"))
+```
+
+Assuming equal population variances in the two groups, 
+the pooled variance is $s^2_\mathrm{pool}=`r s2_pool`$. 
+
+Given that the 97.5th percentile of the $t$-distribution with $`r n_A + n_B - 2`$ degrees of freedom is $`r quant`$, 
+calculate the two-sided $95\%$ confidence interval.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The two-sided $95\%$ confidence interval is calculated by: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: confint3
+exshuffle: TRUE
