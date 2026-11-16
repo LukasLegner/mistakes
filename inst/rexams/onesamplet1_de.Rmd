@@ -1,0 +1,77 @@
+---
+title: "Klinische Studie zu Depression"
+params:
+  lang: "de"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "onesamplet1"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+hook(xbar, mean(X))
+hook(s_X, subscript(s, X))
+hook(mu_0, subscript(mu, 0L))
+hook(n, N)
+
+## DATA GENERATION
+repeat
+{
+  n <- as.integer(round(runif(1, min=20, max=45)))
+  mu_0 <- round(runif(1, min = 18, max = 28), 1)
+  s_X   <- round(runif(1, min = 4, max = 9), 1)    
+
+  t <- runif(1, min = 0.5, max = 3.0)
+  xbar <- round(mu_0 + t * s_X / sqrt(n), 1)
+
+  tratio <- (xbar - mu_0) / (s_X / sqrt(n))
+
+  if(tratio < 0.5 || tratio > 3.0)
+    next
+
+  Q <- quote(search(onesamplet1, tratio(xbar, mu_0, s_X, n),
+    .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+```
+
+Question
+========
+Wir betrachten eine klinische Studie, in der $N=`r n`$ Patient:innen einen
+mittleren Depressionswert von $\overline{X}=`r xbar`$ im
+Beck-Depressions-Inventar aufweisen, mit einer Standardabweichung von 
+$s_X=`r s_X`$. Berechne die $t$-Statistik um zu testen, ob der mittlere 
+Depressionswert höher als der Referenzwert $\mu_0= `r n`$ ist.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+Die $t$-Statistik wird folgendermaßen berechnet: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: onesamplet1
+exshuffle: TRUE
