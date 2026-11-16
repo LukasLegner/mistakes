@@ -10,7 +10,7 @@ library(mathml)
 library(htmltools)
 library(mistakes)
 
-hook(s_d, s^2)
+hook(s2, subscript(s^2, D))
 hook(s_d, subscript(s, D))
 hook(n, N)
 hook(quant, subscript(t, "0.975"))
@@ -29,7 +29,7 @@ repeat
   n <- as.integer(round(runif(1, min=25, max=50)))
   d0 <- round(runif(1, 9, 13)) 
   d <- d0 + round(runif(1, 0.5, 2),1) 
-  s_d <- round(runif(1, 1.5, 2.5),1)
+  s_d <- round(runif(1, 4, 8),1)
   s2 <- s_d^2
 
   quant <- round(qt(0.975, n - 1), 2)
@@ -54,7 +54,7 @@ designed to reduce burnout. The burnout was assessed before and after
 using the Emotional Exhaustion subscale of the Maslach Burnout Inventory (MBI). 
 The program is intended to yield a reduction of $D_0=`r d0`$ points on the MBI scale.
 
-The mean reduction was $\overline{D}=`r d`$ and the sample variance was $s^2=`r s2`$.
+The mean reduction was $\overline{D}=`r d`$, this reduction varied with a variance of ${s_D}^2=`r s2`$.
 
 Assuming that the difference scores are normally distributed, 
 calculate the $95\%$ confidence interval for the mean reduction in burnout. 
