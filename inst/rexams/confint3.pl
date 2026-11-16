@@ -13,7 +13,8 @@ expert(X, Y, stderror, []) :-
 
 expert(X, Y, ci, []) :-
     X = stderror(Mu_A, Mu_B, Q, S),
-    Y = interval(Mu_A - Mu_B - Q * sqrt(S), Mu_A - Mu_B + Q * sqrt(S)).
+    StdError = denote(se, sqrt(S), "with ~m denoting the standard error"),
+    Y = interval(Mu_A - Mu_B - dot(Q, StdError), Mu_A - Mu_B + dot(Q, StdError)).
 
 % Mistakes
 
@@ -25,7 +26,8 @@ buggy(X, Y, reciprocal, []) :-
 % No square root
 buggy(X, Y, nosqrt, []) :-
     X = stderror(Mu_A, Mu_B, Q, S),
-    Y = interval(Mu_A - Mu_B - Q * S, Mu_A - Mu_B + Q * S).
+    StdError = denote(se, S, "with ~m denoting the standard error"),
+    Y = interval(Mu_A - Mu_B - dot(Q, StdError), Mu_A - Mu_B + dot(Q, StdError)).
 
 % Feedback
 praise(en, stderror, "You correctly calculated the standard error.").
