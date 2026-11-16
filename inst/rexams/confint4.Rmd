@@ -16,6 +16,7 @@ hook(n, N)
 hook(quant, subscript(t, "0.975"))
 hook(d, mean(D))
 hook(d0, subscript(D, 0L))
+hook(se, italic(SE))
 
 task <- "confint4"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
@@ -54,7 +55,7 @@ designed to reduce burnout. The burnout was assessed before and after
 using the Emotional Exhaustion subscale of the Maslach Burnout Inventory (MBI). 
 The program is intended to yield a reduction of $D_0=`r d0`$ points on the MBI scale.
 
-The mean reduction was $\overline{D}=`r d`$, this reduction varied with a variance of ${s_D}^2=`r s2`$.
+The mean reduction was $\overline{D}=`r d`$ with variance ${s_D}^2=`r s2`$.
 
 Assuming that the difference scores are normally distributed, 
 calculate the $95\%$ confidence interval for the mean reduction in burnout. 

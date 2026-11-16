@@ -9,23 +9,25 @@ intermediate(stderror/4).
 
 expert(X, Y, stderror, []) :-
     X = confint4(N, D, D0, Q, Sd),
-    Y = stderror(D, Q, D0, Sd / sqrt(N)).
+    StdError = denote(se, Sd / sqrt(N), "with ~m denoting the standard error"),
+    Y = stderror(D, Q, D0, StdError).
 
 expert(X, Y, ci, []) :-
     X = stderror(D, Q, _D0, StandardError),
-    Y = interval(D - Q * StandardError, D + Q * StandardError).
+    Y = interval(D - dot(Q, StandardError), D + dot(Q,  StandardError)).
 
 % Mistakes
 
 % Reference value mu0 instead of mean
 buggy(X, Y, reference, []) :-
     X = stderror(_D, Q, D0, StandardError),
-    Y = interval(D0 - Q * StandardError, D0 + Q * StandardError).
+    Y = interval(D0 - dot(Q, StandardError), D0 + dot(Q, StandardError)).
 
 % No square root
 buggy(X, Y, nosqrt, []) :-
     X = confint4(N, D, D0, Q, Sd),
-    Y = stderror(D, Q, D0, Sd / N).
+    StdError = denote(se, Sd / N, "with ~m denoting the standard error"),
+    Y = stderror(D, Q, D0, StdError).
 
 % Feedback
 praise(en, stderror, "You correctly calculated the estimated standard error of the mean difference.").
