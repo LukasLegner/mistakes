@@ -14,16 +14,16 @@ task <- "onesamplet2"
 plfile <- file.path("rexams", sprintf("%s.pl", task))
 rolog::consult(system.file(plfile, package="mistakes"))
 
-hook(s_D, subscript(s, D))
+hook(s_X, subscript(s, X))
 hook(n, N)
 
 ## DATA GENERATION
 repeat
 {
   n <- sample(10:20, 1)
-  s_D <- round(runif(1, min = 6, max = 12), 1)
+  s_X <- round(runif(1, min = 6, max = 12), 1)
 
-  Q <- quote(search(onesamplet2, tratio(s_D, n),
+  Q <- quote(search(onesamplet2, tratio(s_X, n),
     .S, .R, .P, .E))
   S <- findall(Q, options=list(preproc=as.rolog), env=environment())
 
@@ -40,7 +40,7 @@ sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
 
 Question
 ========
-Consider a sample of $N=`r n`$ observations with sample standard deviation $s_D=`r s_D`$. 
+Consider a sample of $N=`r n`$ observations with sample standard deviation $s_X=`r s_X`$. 
 Determine the standard error of the sample mean. 
 
 ```{r questionlist, echo = FALSE, results = "asis"}
@@ -49,7 +49,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Solution
 ========
-The standard error is given by: `r t$solution`
+The standard error of the sample mean is given by: `r t$solution`
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 answerlist(sol, markup="markdown")

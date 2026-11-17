@@ -1,0 +1,63 @@
+---
+title: "Standard error"
+params:
+  lang: "de"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "onesamplet2"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+hook(s_X, subscript(s, X))
+hook(n, N)
+
+## DATA GENERATION
+repeat
+{
+  n <- sample(10:20, 1)
+  s_X <- round(runif(1, min = 6, max = 12), 1)
+
+  Q <- quote(search(onesamplet2, tratio(s_X, n),
+    .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+```
+
+Question
+========
+Wir betrachten eine Stichprobe mit $N=`r n`$ Beobachtungen und einer empirischen Standardabweichung von $s_X=`r s_X`$. 
+Bestimme den Standardfehler des Mittelwerts.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+Der Standardfehler des Mittelwerts wird folgendermaßen berechnet: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: onesamplet2
+exshuffle: TRUE
