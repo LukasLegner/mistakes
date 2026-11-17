@@ -15,7 +15,7 @@ plfile <- file.path("rexams", sprintf("%s.pl", task))
 rolog::consult(system.file(plfile, package="mistakes"))
 
 hook(xbar, mean(X))
-hook(s_D, subscript(s, D))
+hook(s_X, subscript(s, X))
 hook(mu0, subscript(mu, 0L))
 hook(n, N)
 
@@ -24,15 +24,15 @@ repeat
 {
   n <- as.integer(round(runif(1, min=20, max=45)))
   mu0 <- round(runif(1, min = 9, max = 15), 1)
-  s_D   <- round(runif(1, min = 2, max = 5), 1)    
+  s_X   <- round(runif(1, min = 2, max = 5), 1)    
 
   t <- runif(1, min = 0.5, max = 3.0)
-  xbar <- round(mu0 - t * s_D / sqrt(n), 1)
-  tratio <- (xbar - mu0) / (s_D / sqrt(n))
+  xbar <- round(mu0 - t * s_X / sqrt(n), 1)
+  tratio <- (xbar - mu0) / (s_X / sqrt(n))
   if(tratio > - 0.5 || tratio < -3.0)
     next
 
-  Q <- quote(search(onesamplet4, tratio(xbar, mu0, s_D, n), .S, .R, .P, .E))
+  Q <- quote(search(onesamplet4, tratio(xbar, mu0, s_X, n), .S, .R, .P, .E))
   S <- findall(Q, options=list(preproc=as.rolog), env=environment())
 
   if(problems(S))
@@ -49,7 +49,7 @@ sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
 Question
 ========
 In a clinical study, $N=`r n`$ patients report after treatment a mean anxiety score of $\overline{X}=`r xbar`$ 
-on the Generalized Anxiety Disorder-7 (GAD-7), with a standard deviation of $s_D=`r s_D`$. 
+on the Generalized Anxiety Disorder-7 (GAD-7), with a standard deviation of $s_X=`r s_X`$. 
 The mean GAD-7 score in a comparable clinical population is $\mu_0=`r mu0`$. 
 To test whether the mean post-treatment anxiety score is lower than this reference value, 
 calculate the corresponding $t$-ratio.
@@ -71,3 +71,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: onesamplet4
+exshuffle: TRUE
