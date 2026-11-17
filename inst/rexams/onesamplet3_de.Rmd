@@ -1,0 +1,66 @@
+---
+title: "Einseitiger $t$-Test"
+params:
+  lang: "de"
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+task <- "onesamplet3"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+hook(tratio, t)
+hook(n, N)
+
+## DATA GENERATION
+repeat
+{
+  n <- as.integer(round(runif(1, min=10, max=20)))  
+  df <- n - 1L
+
+  p <- runif(1, min = 0.04, max = 0.20)
+  tratio <- round(qt(p, df = df), 2)
+
+  Q <- quote(search(onesamplet3, tratio(tratio, n),
+    .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+```
+
+Question
+========
+Ein $t$-Test für eine Stichprobe mit $N=`r n`$ Beobachtungen ergibt eine Teststatistik von $t=`r tratio`$. 
+Berechne den entsprechenden einseitigen $p$-Wert für H1: $\mu < \mu_0$.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+Der $p$-Wert wird folgendermaßen berechnet: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: onesamplet3
+exshuffle: TRUE
