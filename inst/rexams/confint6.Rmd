@@ -12,7 +12,7 @@ library(mistakes)
 
 hook(s_d, subscript(s, D))
 hook(n, N)
-hook(xbar, mean(x))
+hook(xbar, mean(X))
 hook(quant90, subscript(t, "0.90"))
 hook(quant95, subscript(t, "0.975"))
 hook(mu0, subscript(mu, 0L))
@@ -57,10 +57,10 @@ Question
 A sample of $N=`r n`$ graduate students took part in a program 
 designed to reduce their performance anxiety before an oral presentation. 
 The researchers expected the mean anxiety score after the program to be lower 
-than the reference value of $\mu_0=`r mu0`$ points. At the end of the program, the students completed a questionnaire. 
-Their mean score is $\overline{X}=`r xbar`$ points, and their sample standard deviation is $s_D=`r s_d`$ points. 
+than the reference value of $\mu_0=`r mu0`$ points. At the end of the program, the students completed an anxiety questionnaire. 
+Their mean score was $\overline{X}=`r xbar`$ points, and their sample standard deviation was $s_D=`r s_d`$ points. 
 
-Assuming that well-being scores are approximately normally distributed, 
+Assuming that anxiety scores are approximately normally distributed, 
 calculate the two-sided $90\%$ confidence interval. 
 
 
