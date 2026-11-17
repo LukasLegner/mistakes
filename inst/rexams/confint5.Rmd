@@ -70,10 +70,10 @@ In an environmental psychology study, participants were randomly assigned to one
 Participants in Condition A ($N=`r n_A`$) received information about animal welfare and the environmental impact of food choices. 
 Participants in Condition B ($N=`r n_B`$) received information about animal welfare only. 
 For each participant, the number of vegetarian meals chosen over one week at the university’s cafeteria was the primary outcome.
-In Condition A, $\overline{X_A}=`r x_A`$ vegetarian meals were chosen compared to the $\overline{X_B}=`r x_B`$ chosen in Condition B. 
+In Condition A, $\overline{X}_\mathrm{A}=`r x_A`$ vegetarian meals were chosen compared to the $\overline{X}_\mathrm{B}=`r x_B`$ chosen in Condition B. 
 The standard deviations are respectively $s_\mathrm{A}=`r s_A`$ and $s_\mathrm{B}=`r s_B`$.
 
-Assuming equal population variances in the two, calculate the two-sided $95\%$ confidence interval.
+Assuming equal variances in the two conditions, calculate the two-sided $95\%$ confidence interval.
 The 97.5th percentile of the $t$-distribution with $`r n_A + n_B - 2`$ degrees of freedom is $`r quant`$.
 
 ```{r questionlist, echo = FALSE, results = "asis"}
