@@ -1,0 +1,85 @@
+---
+title: "Confidence interval"
+params:
+  lang: en
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(s_d, subscript(s, D))
+hook(n, N)
+hook(xbar, mean(X))
+hook(quant90, subscript(t, "0.95"))
+hook(quant95, subscript(t, "0.975"))
+hook(mu0, subscript(mu, 0L))
+hook(se, italic(SE))
+hook(q95, "95%")
+hook(q90, "90%")
+
+
+task <- "confint6"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+source("utility.R")
+
+## DATA GENERATION
+repeat
+{
+  n <- as.integer(round(runif(1, min=25, max=35)))
+  mu0 <- round(runif(1, 8, 14)) 
+  xbar <- mu0 - round(runif(1, 0.5, 3),1) 
+  s_d <- round(runif(1, 2.5, 4),1)
+
+  quant90 <- qt(0.95, n - 1)
+  quant95 <- qt(0.975, n - 1)
+
+  Q <- quote(search(confint6, confint6(n, xbar, mu0, s_d, quant90, quant95), .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+```
+
+Question
+========
+
+A sample of $N=`r n`$ graduate students took part in a program 
+designed to reduce their performance anxiety before an oral presentation. 
+The researchers expected the mean anxiety score after the program to be lower 
+than the reference value of $\mu_0=`r mu0`$ points. At the end of the program, the students completed an anxiety questionnaire. 
+Their mean score was $\overline{X}=`r xbar`$ points, and their sample standard deviation was $s_D=`r s_d`$ points. 
+
+Assuming that anxiety scores are approximately normally distributed, 
+calculate the two-sided $90\%$ confidence interval. 
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The two-sided $90\%$ confidence interval is calculated by: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: confint6
+exshuffle: TRUE
