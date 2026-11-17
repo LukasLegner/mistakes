@@ -29,7 +29,7 @@ praise(en, pval, "You correctly determined the probability in the lower tail of 
 blame(en, nodf, "Careful, you used the sample size instead of the degrees of freedom.").
 blame(en, upper, "Careful, you calculated the probability in the upper tail instead of the lower tail.").
 blame(en, twosided, "Careful, you calculated a two-sided instead of the requested one-sided $p$-value.").
-blame(en, half, "Careful, you divided the one-sided $p$-value by two.").
+blame(en, half, "Careful, you divided the one-sided $p$-value by 2.").
 
 praise(de, pt, "Du hast korrekt die $t$-Verteilung mit ~m Freiheitsgraden verwendet."-[n-1]).
 praise(de, pval, "Du hast den einseitigen $p$-Wert der $t$-Verteilung korrekt bestimmt.").
@@ -37,4 +37,4 @@ praise(de, pval, "Du hast den einseitigen $p$-Wert der $t$-Verteilung korrekt be
 blame(de, nodf, "Vorsicht, du hast den Stichprobenumfang statt der Freiheitsgrade eingesetzt.").
 blame(de, upper, "Vorsicht, du hast die Wahrscheinlichkeit rechts statt links des $t$-Werts berechnet.").
 blame(de, twosided, "Vorsicht, du hast einen zweiseitigen statt des einseitigen $p$-Werts berechnet.").
-blame(de, half, "Vorsicht, du hast den einseitigen $p$-Wert durch zwei geteilt.").
+blame(de, half, "Vorsicht, du hast den einseitigen $p$-Wert durch 2 geteilt.").
