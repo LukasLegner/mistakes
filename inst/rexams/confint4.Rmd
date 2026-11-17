@@ -1,0 +1,83 @@
+---
+title: "Confidence interval"
+params:
+  lang: en
+---
+
+```{r, include=FALSE}
+library(exams)
+library(mathml)
+library(htmltools)
+library(mistakes)
+
+hook(s2, subscript(s^2, D))
+hook(s_d, subscript(s, D))
+hook(n, N)
+hook(quant, subscript(t, "0.975"))
+hook(d, mean(D))
+hook(d0, subscript(D, 0L))
+hook(se, italic(SE))
+
+task <- "confint4"
+plfile <- file.path("rexams", sprintf("%s.pl", task))
+rolog::consult(system.file(plfile, package="mistakes"))
+
+source("utility.R")
+
+## DATA GENERATION
+repeat
+{
+  n <- as.integer(round(runif(1, min=25, max=50)))
+  d0 <- round(runif(1, 9, 13)) 
+  d <- d0 + round(runif(1, 0.5, 2),1) 
+  s_d <- round(runif(1, 4, 8),1)
+  s2 <- s_d^2
+
+  quant <- round(qt(0.975, n - 1), 2)
+
+  Q <- quote(search(confint4, confint4(n, d, d0, quant, s_d), .S, .R, .P, .E))
+  S <- findall(Q, options=list(preproc=as.rolog), env=environment())
+
+  if(problems(S))
+    next
+
+  break
+}
+
+t <- prepare(task=task, S)
+sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
+```
+
+Question
+========
+A sample of $N=`r n`$ hospital nurses took part in an experimental program 
+designed to reduce burnout. The burnout was assessed before and after 
+using the Emotional Exhaustion subscale of the Maslach Burnout Inventory (MBI). 
+The program is intended to yield a reduction of $D_0=`r d0`$ points on the MBI scale.
+
+The mean reduction was $\overline{D}=`r d`$ with variance ${s_D}^2=`r s2`$.
+
+Assuming that the difference scores are normally distributed, 
+calculate the $95\%$ confidence interval for the mean reduction in burnout. 
+
+The 97.5th percentile of the $t$-distribution with $`r n - 1`$ degrees of freedom is $`r quant`$.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+The two-sided $95\%$ confidence interval is calculated by: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: confint4
+exshuffle: TRUE
