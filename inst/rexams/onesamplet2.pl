@@ -39,4 +39,4 @@ praise(de, arg, "Du hast die Stichprobengröße im Nenner richtig eingesetzt.").
 praise(de, se, "Du hast im Nenner korrekt die Wurzel gezogen.").
 blame(de, nosqrt, "Vorsicht, du hast vergessen, im Nenner die Wurzel zu ziehen.").
 blame(de, df, "Vorsicht, du hast die Anzahl an Freiheitsgraden $N-1$ statt die Stichprobengröße $N$ eingesetzt.").
-blame(de, sd, "Vorsicht, das ist die Standardabweichung der Stichprobe. Der Standardfehler wird durch ~m. berechnet"-[s_X / sqrt(n)]).
+blame(de, sd, "Vorsicht, das ist die Standardabweichung der Stichprobe. Der Standardfehler wird durch ~m berechnet."-[s_X / sqrt(n)]).

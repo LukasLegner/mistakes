@@ -10,7 +10,7 @@ expert(X, Y, numerator, []) :-
     Y = tratio2(Xbar - Mu0, Sd, N).
 
 intermediate(tratio2/3).
-expert(X, Y, tratio, []) :-
+expert(X, Y, tstat, []) :-
     X = tratio2(Numerator, Sd, N),
     Y = dfrac(Numerator, Sd / sqrt(N)).
 
@@ -33,17 +33,17 @@ buggy(X, Y, inverted, []) :-
 
 % Feedback
 praise(en, numerator, "You correctly calculated the numerator of the $t$-statistic.").
-praise(en, tratio, "You correctly calculated the denominator of the $t$-statistic.").
+praise(en, tstat, "You correctly calculated the denominator of the $t$-statistic.").
 
 blame(en, sd, "Careful, you used the standard deviation instead of the standard error in the denominator.").
-blame(en, mu, "Careful, you forgot to subtract ~m from ~m."-[mu0, xbar]).
+blame(en, mu, "Careful, you forgot to subtract ~m from ~m."-[mu_0, xbar]).
 blame(en, squareroot, "Careful, you forgot to take the square root of $N$ when calculating the standard error.").
-blame(en, inverted, "Careful, you inverted the terms in the numerator. The numerator should be ~m, not ~m."-[xbar - mu0, mu0 - xbar]).
+blame(en, inverted, "Careful, you inverted the terms in the numerator. The numerator should be ~m, not ~m."-[xbar - mu_0, mu_0 - xbar]).
 
 praise(de, numerator, "Du hast den Zähler der $t$-Statistik korrekt berechnet.").
-praise(de, tratio, "Du hast den Nenner der $t$-Statistik korrekt berechnet.").
+praise(de, tstat, "Du hast den Nenner der $t$-Statistik korrekt berechnet.").
 
 blame(de, sd, "Vorsicht, du hast im Nenner die Standardabweichung statt des Standardfehlers verwendet.").
-blame(de, mu, "Vorsicht, du hast vergessen, ~m von ~m abzuziehen."-[mu0, xbar]).
+blame(de, mu, "Vorsicht, du hast vergessen, ~m von ~m abzuziehen."-[mu_0, xbar]).
 blame(de, squareroot, "Vorsicht, du hast vergessen, beim Berechnen des Standardfehlers die Quadratwurzel aus $N$ zu ziehen.").
-blame(de, inverted, "Vorsicht, du hast die Terme im Zähler vertauscht. Der Zähler sollte ~m sein, nicht ~m."-[xbar - mu0, mu0 - xbar]).
+blame(de, inverted, "Vorsicht, du hast die Terme im Zähler vertauscht. Der Zähler sollte ~m sein, nicht ~m."-[xbar - mu_0, mu_0 - xbar]).
