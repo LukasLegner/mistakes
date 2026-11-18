@@ -16,23 +16,23 @@ rolog::consult(system.file(plfile, package="mistakes"))
 
 hook(xbar, mean(X))
 hook(s_X, subscript(s, X))
-hook(mu0, subscript(mu, 0L))
+hook(mu_0, subscript(mu, 0L))
 hook(n, N)
 
 ## DATA GENERATION
 repeat
 {
   n <- as.integer(round(runif(1, min=20, max=45)))
-  mu0 <- round(runif(1, min = 9, max = 15), 1)
+  mu_0 <- round(runif(1, min = 9, max = 15), 1)
   s_X   <- round(runif(1, min = 2, max = 5), 1)    
 
   t <- runif(1, min = 0.5, max = 3.0)
-  xbar <- round(mu0 - t * s_X / sqrt(n), 1)
-  tratio <- (xbar - mu0) / (s_X / sqrt(n))
+  xbar <- round(mu_0 - t * s_X / sqrt(n), 1)
+  tratio <- (xbar - mu_0) / (s_X / sqrt(n))
   if(tratio > - 0.5 || tratio < -3.0)
     next
 
-  Q <- quote(search(onesamplet4, tratio(xbar, mu0, s_X, n), .S, .R, .P, .E))
+  Q <- quote(search(onesamplet4, tratio(xbar, mu_0, s_X, n), .S, .R, .P, .E))
   S <- findall(Q, options=list(preproc=as.rolog), env=environment())
 
   if(problems(S))
@@ -51,7 +51,7 @@ Question
 In einer klinischen Studie berichten $N=`r n`$ Patient:innen nach der 
 Behandlung einen mittleren Depressions-Score von $\overline{X}=`r xbar`$ im Fragebogen 
 Generalized Anxiety Disorder-7 (GAD-7), mit einer Standardabweichung von $s_X=`r s_X`$. 
-Der mittlere GAD-7-Wert in einer vergleichbaren klinischen Population beträgt $\mu_0=`r mu0`$. 
+Der mittlere GAD-7-Wert in einer vergleichbaren klinischen Population beträgt $\mu_0=`r mu_0`$. 
 Berechne die $t$-Statistik um zu testen, ob der mittlere Depressions-Score 
 nach der Behandlung niedriger ist als dieser Referenzwert.
 
