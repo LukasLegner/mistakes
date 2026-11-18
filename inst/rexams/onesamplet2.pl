@@ -1,12 +1,18 @@
 :- module(onesamplet2, []).
 
-:- discontiguous intermediate/1, expert/4, buggy/4.
+:- discontiguous intermediate/1, expert/4, buggy/4, blame/3, praise/3.
 :- use_module(library(i18n)).
 
 % Solution of the problem
 intermediate(tratio/2).
-expert(X, Y, se, []) :-
+intermediate(arg/2).
+
+expert(X, Y, arg, []) :-
     X = tratio(Sd, N),
+    Y = arg(Sd, N).
+
+expert(X, Y, se, []) :-
+    X = arg(Sd, N),
     Y = Sd / sqrt(N).
 
 % Mistakes
@@ -16,18 +22,21 @@ buggy(X, Y, sd, []) :-
 
 buggy(X, Y, df, []) :-
     X = tratio(Sd, N),
-    Y = Sd / sqrt(N - 1).
+    Y = arg(Sd, N - 1).
 
 buggy(X, Y, nosqrt, []) :-
-    X = tratio(Sd, N),
-    Y = Sd / N. 
+    X = arg(Sd, N),
+    Y = Sd / N.
 
 % Feedback
-praise(en, se, "You correctly determined the standard error").
+praise(en, arg, "You correctly used the sample size in the denominator.").
+praise(en, se, "You correctly took the square root in the denominator.").
+blame(en, nosqrt, "Careful, you forgot to take the square root in the denominator.").
+blame(en, df, "Careful, you used the number of degrees of freedom instead of the sample size.").
+blame(en, sd, "Careful, this is the sample standard deviation. The standard error is given by ~m."-[s_X / sqrt(n)]).
 
-blame(en, nosqrt, "Careful, you forgot to take the square root of $N$.").
-
-blame(en, df, "Careful, you divided by the square root of the number of degrees of freedom instead of the square root of the sample size.").
-
-blame(en, sd, "Careful, this is the sample standard deviation. The standard error is given by ~m."-[s_D / sqrt(n)]).
-
+praise(de, arg, "Du hast die Stichprobengröße im Nenner richtig eingesetzt.").
+praise(de, se, "Du hast im Nenner korrekt die Wurzel gezogen.").
+blame(de, nosqrt, "Vorsicht, du hast vergessen, im Nenner die Wurzel zu ziehen.").
+blame(de, df, "Vorsicht, du hast die Anzahl an Freiheitsgraden $N-1$ statt die Stichprobengröße $N$ eingesetzt.").
+blame(de, sd, "Vorsicht, das ist die Standardabweichung der Stichprobe. Der Standardfehler wird durch ~m. berechnet"-[s_X / sqrt(n)]).
