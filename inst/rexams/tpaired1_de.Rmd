@@ -1,5 +1,5 @@
 ---
-title: "Explorative Study on Tutoring"
+title: "Explorative Studie zu Einzelnachhilfe"
 params:
   lang: "de"
 ---
