@@ -1,6 +1,6 @@
 :- module(tpaired2, []).
 
-:- discontiguous intermediate/1, expert/4, buggy/4.
+:- discontiguous intermediate/1, expert/4, buggy/4, blame/3, praise/3.
 :- use_module(library(i18n)).
 
 % Solution of the problem
@@ -38,5 +38,14 @@ praise(en, pval, "You correctly calculated the one-tailed $p$-value.").
 
 blame(en, twotailed, "Careful, you have calculated the two-tailed $p$-value.").
 
-blame(en, othertail, "•	Careful, you have calculated the one-tailed $p$-value of having less than a ~m unit increase."-[mu_0]).
+blame(en, othertail, "Careful, you have calculated the one-tailed $p$-value of having less than a ~m unit increase."-[mu_0]).
 
+praise(de, paired, "Du hast den Zähler der $t$-Statistik korrekt berechnet.").
+
+praise(de, tratio, "Du hast den Nenner der $t$-Statistik korrekt berechnet.").
+
+praise(de, pval, "Du hast den einseitigen $p$-Wert korrekt berechnet.").
+
+blame(de, twotailed, "Vorsicht, du hast den zweiseitigen $p$-Wert berechnet.").
+
+blame(de, othertail, "Vorsicht, du hast den einseitigen $p$-Wert für eine Zunahme von weniger als (statt mehr als) ~m Einheiten berechnet."-[mu_0]).
