@@ -1,0 +1,46 @@
+---
+title: "Explorative Study on Tutoring"
+params:
+  lang: "de"
+---
+
+```{r, include=FALSE}
+task <- "tpaired1"
+source("tpaired.R")
+```
+
+Question
+========
+Eine explorative Studie untersucht die Wirkung von Einzelnachhilfe auf die
+Schulnoten von Schüler:innen. Insgesamt $N=`r N`$ Schüler:innen erhalten eine
+16-wöchige Intervention. Das primäre Zielkriterium ist die Differenz des
+Notendurchschnitts (Grade Point Average) vor und nach der Intervention (GPA von
+0 = schlechteste bis 4 = beste Leistung). Das Signifikanzniveau wird auf
+$\alpha=.05$ einseitig festgelegt.
+
+````{r, echo=FALSE}
+knitr::kable(tab, caption="_Tabelle 1._ GPA-Scores zum Zeitpunkt T0, EOT und D=EOT−T0")
+````
+
+Führt Einzelnachhilfe zu einer bedeutsamen Verbesserung des GPA 
+(d.h. zu einem Anstieg von mehr als $\mu_0=`r mu_0`$ Einheiten)? 
+Gib den Wert der $t$-Statistik an.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+Die $t$-Statistik für gepaarte Stichproben wird folgendermaßen berechnet: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: tpaired1
+exshuffle: TRUE
