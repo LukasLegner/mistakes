@@ -12,8 +12,17 @@ expert(X, Y, paired, []) :-
 intermediate(tratio/3).
 expert(X, Y, tratio, []) :-
     X = tratio(Numerator, Sd, N),
-    T = denote(t, dfrac(Numerator, Sd / sqrt(N)), "with ~m denoting the $t$-ratio."),
+    lang(tvar, Tstat),
+    T = denote(t, dfrac(Numerator, Sd / sqrt(N)), Tstat),
     Y = pval(T, N).
+
+lang(Id, Elem),
+    lang(L),
+    lang(L, Id, Elem0)
+ => Elem = Elem0.
+
+lang(en, tvar, "with ~m denoting the $t$-ratio.").
+lang(de, tvar, "mit ~m für die $t$-Statistik.").
 
 intermediate(pval/2).
 expert(X, Y, pval, []) :-
