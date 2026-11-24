@@ -1,0 +1,49 @@
+---
+title: "Intervention for Work Engagement"
+params:
+  lang: "de"
+---
+
+```{r, include=FALSE}
+task <- "tpaired4"
+repeat{
+  source("tpaired.R")
+  if(mu_eot > 6)
+    next
+  break
+}
+```
+
+Question
+========
+Eine arbeits- und organisationspsychologische Studie untersucht, ob ein Teambuilding-Programm 
+das Arbeitsengagement von Beschäftigten steigert. Insgesamt ($N=`r N`$) Beschäftigte nehmen 
+an einer sechswöchigen Intervention teil. Das Arbeitsengagement wird vor und nach der Intervention 
+mit der Utrecht Work Engagement Scale (UWES-9; von 0 = geringstes bis 6 = höchstes Arbeitsengagement) erfasst.
+Das Signifikanzniveau wird auf ($\alpha=.05$) zweiseitig festgelegt.
+
+````{r, echo=FALSE}
+knitr::kable(tab, caption="_Tabelle 1._ UWES-9 Scores für T0, EOT, und D=EOT−T0.")
+````
+
+Führt das Teambuilding-Programm zu einer bedeutsamen Veränderung (d.h. um mehr als $\mu_0=`r mu_0`$ Einheiten) des Arbeitsengagements? Gib den zweiseitigen
+$p$-Wert an.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+Der zweiseitige $p$-Wert wird folgendermaßen berechnet: `r t$solution`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: tpaired4
+exshuffle: TRUE
