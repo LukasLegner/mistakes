@@ -45,3 +45,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: tpaired3
+exshuffle: TRUE

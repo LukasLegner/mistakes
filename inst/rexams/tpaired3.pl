@@ -1,6 +1,6 @@
 :- module(tpaired3, []).
 
-:- discontiguous intermediate/1, expert/4, buggy/4.
+:- discontiguous intermediate/1, expert/4, buggy/4, blame/3, praise/3.
 :- use_module(library(i18n)).
 
 % Solution of the problem
@@ -16,7 +16,7 @@ expert(X, Y, tratio, []) :-
 
 % Mistakes
 buggy(X, Y, indep, []) :-
-    X = tpaired(D, Mu, Sd, Sd_T0, Sd_EOT, N),
+    X = tpaired(D, Mu, _Sd, Sd_T0, Sd_EOT, N),
     V = dfrac((N - 1) * Sd_T0^2 + (N - 1) * Sd_EOT^2, N + N - 2),
     lang(pooledvar, Pooled),
     P = denote(s_pool^2, V, Pooled),
@@ -44,14 +44,15 @@ buggy(X, Y, paren, []) :-
 
 % Feedback
 praise(en, paired, "You correctly calculated the numerator of the $t$-statistic.").
-
 praise(en, tratio, "You correctly calculated the denominator of the $t$-statistic.").
-
 blame(en, indep, "Careful, you used the formula of the $t$-test for independent samples.").
-
 blame(en, mu, "Careful, you forgot to subtract the ~m  in the formula."-[mu_0]).
-
 blame(en, squareroot, "Careful, you forgot to take the square root of $N$ when calculating the standard error.").
-
 blame(en, paren, "Careful, you forgot to put parentheses around the numerator and the denominator of the fraction.").
 
+praise(de, paired, "Du hast den Zähler der $t$-Statistik korrekt berechnet.").
+praise(de, tratio, "Du hast den Nenner der $t$-Statistik korrekt berechnet.").
+blame(de, indep, "Vorsicht, du hast die Formel des $t$-Tests für unabhängige Stichproben verwendet.").
+blame(de, mu, "Vorsicht, du hast vergessen, ~m in der Formel zu subtrahieren."-[mu_0]).
+blame(de, squareroot, "Vorsicht, du hast vergessen, bei der Berechnung des Standardfehlers die Wurzel aus $N$ zu ziehen.").
+blame(de, paren, "Vorsicht, du hast vergessen, den Zähler und den Nenner des Bruchs in Klammern zu setzen.").
