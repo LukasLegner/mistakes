@@ -1,5 +1,5 @@
 ---
-title: "Intervention for Work Engagement"
+title: "Intervention für Arbeitsengagement"
 params:
   lang: "de"
 ---
