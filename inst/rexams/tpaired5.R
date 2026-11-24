@@ -40,6 +40,6 @@ repeat
   break
 }
 
-t <- prepare(task=task, S)
+t <- prepare(task=task, S, N=6)
 sol <- format_feedback(t$correct, t$explanations, t$bugs, t$praise, t$blame, t$extra)
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")

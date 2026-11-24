@@ -1,5 +1,5 @@
 ---
-title: "Intervention for Work Engagement"
+title: "Sample size calculation for a depression study"
 params:
   lang: "en"
 ---
@@ -37,8 +37,6 @@ Next, we calculate the standardized effect size, given by $d = \dfrac{\mu_D - \m
 
 The sample size formula is then given by $N≈\dfrac{9}{d^2}$. Note to always round up this number!
 
-
-
 ```{r solutionlist, echo = FALSE, results = "asis"}
 answerlist(sol, markup="markdown")
 ```
@@ -48,3 +46,4 @@ Meta-information
 extype: schoice
 exsolution: `r mchoice2string(t$correct, single=TRUE)`
 exname: tpaired5
+exshuffle: TRUE

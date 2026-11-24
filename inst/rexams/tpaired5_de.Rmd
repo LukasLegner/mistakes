@@ -1,0 +1,48 @@
+---
+title: "Fallzahlplanung einer Depressionsstudie"
+params:
+  lang: "de"
+---
+
+```{r, include=FALSE}
+task <- "tpaired5"
+source("tpaired5.R")
+```
+
+Question
+========
+In einer Studie zur Depression werden die Symptome vor und nach der Intervention 
+mit der Montgomery-Asberg Depression Rating Scale (MADRS, von 0 bis 60, 
+wobei höhere Werte schwerere depressive Symptome bedeuten, 
+Reliabilität der Messung von 0.8) erfasst. 
+Die neue Therapie gilt als vielversprechend, wenn eine relevante Reduktion 
+von mehr als $\mu_0 = `r mu_0`$ Einheiten erreicht wird. 
+Der erwartete Nutzen der neuen Therapie beträgt $\mu_D = `r mu_D`$ Einheiten. 
+Die Standardabweichung zu $T0$ beträgt `r s_t0`. 
+
+Berechne die notwendige Stichprobengröße, um eine Power von 90 % ($\alpha=.05$ einseitig) zu erreichen.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(t$alternatives, markup="markdown")
+```
+
+Solution
+========
+Die Berechnung des Stichprobenumfangs für einen gepaarten $t$-Test erfordert die Berechnung der Standardabweichung der Differenzwerte. 
+Für eine Power von 90 % und eine Reliabilität der Messung von 0.8 
+wird sie folgendermaßen berechnet: $s_D = 0.63 \cdot s_{T0}$.
+
+Als Nächstes berechnen wir die standardisierte Effektstärke: $d = \dfrac{\mu_D - \mu_0}{s_D}$.
+
+Der Stichprobenumfang ergibt sich aus $N≈\dfrac{9}{d^2}$. Diese Zahl ist immer aufzurunden!
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup="markdown")
+```
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(t$correct, single=TRUE)`
+exname: tpaired5
+exshuffle: TRUE
