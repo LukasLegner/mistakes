@@ -7,7 +7,7 @@ params:
 ```{r, include=FALSE}
 task <- "tpaired3"
 repeat{
-  source("tpaired.R")
+  source(system.file("rexams", "tpaired.R", package = "mistakes"), local = TRUE)
   if(mu_eot > 6)
     next
   break
