@@ -6,7 +6,7 @@ params:
 
 ```{r, include=FALSE}
 task <- "tpaired1"
-source("tpaired.R")
+source(system.file("rexams", "tpaired.R", package = "mistakes"), local = TRUE)
 ```
 
 Question
