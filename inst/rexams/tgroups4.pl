@@ -45,8 +45,8 @@ buggy(X, Y, paired, []) :-
     Y = dfrac(Mu, S2_Pool / (N_A + N_B)).
 
 buggy(X, Y, brackets, []) :-
-    X = tstat3(N_A, N_B, Mu_B - Mu_A, S2_Pool, _Denominator),
-    Y = Mu_B - dfrac(Mu_A, S2_Pool / sqrt(N_A + N_B)).
+    X = tstat3(N_A, N_B, Mu_A - Mu_B, S2_Pool, _Denominator),
+    Y = Mu_A - dfrac(Mu_B, S2_Pool / sqrt(N_A + N_B)).
 
 buggy(X, Y, wrongmu, []) :-
     X = tstat1(N_A, Mu_A, N_B, Mu_B, S2_Pool),
