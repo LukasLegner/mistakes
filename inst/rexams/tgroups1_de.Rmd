@@ -90,7 +90,7 @@ answerlist(t$alternatives, markup="markdown")
 
 Solution
 ========
-Die $t$-Statistik wird folgendermaßen berechnet: `r t$solution`
+Die $t$-Statistik wird folgendermaßen berechnet: $t=$`r t$solution`
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 sol <- lapply(sol, FUN=gsub, pattern="\\n", replacement="")
